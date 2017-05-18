@@ -78,7 +78,7 @@ Pool.prototype.updatePoolStat = function(){
   //Update pool statistics history
   _this.db.result(pgp.helpers.insert(pStats, null, 'pool_history'))
   .then(rdata => {
-    _this.log("INF", "Update pool statistics");
+    _this.log("INF", "Updating pool statistics.");
   })
   .catch(error => {
     _this.log("ERR", error.message || error);
@@ -169,7 +169,7 @@ Pool.prototype.updateVoters = function(){
       if(updVoters.length){
         _this.db.result(pgp.helpers.update(updVoters, ['?id', 'active', 'status'], 'voters') + ' WHERE v.id = t.id')
         .then(rdata => {
-          _this.log("INF", "Update voters status.");
+          _this.log("INF", "Updating voter's status.");
         })
         .catch(error => {
           _this.log("ERR", error.message || error);
@@ -181,7 +181,7 @@ Pool.prototype.updateVoters = function(){
         _this.db.result(pgp.helpers.insert(addVoters, ['address', 'balance', 'total', 'poolpercent', 'active', 'status'], 'voters'))
         .then(rdata => {
           _this.updateVoterBalanceHistory();
-          _this.log("INF", "Add new voters.");
+          _this.log("INF", "Adding new voters.");
         })
         .catch(error => {
           _this.log("ERR", error.message || error);
@@ -210,7 +210,7 @@ Pool.prototype.updateVoterBalanceHistory = function(){
 
     _this.db.result(pgp.helpers.insert(vbHist, ['voter_id', 'balance', 'timestamp'], 'balance_history'))
     .then(rdata => {
-      _this.log("INF", "Update voters balance history");
+      _this.log("INF", "Updating voter's balance history");
     })
     .catch(error => {
       _this.log("ERR", error.message || error);
@@ -226,8 +226,8 @@ Pool.prototype.updateBalances = function(){
 
   request.get(_this.get_api("blocks", "getHeight"), function (error, response, body) {
     if (!error && response.statusCode == 200) {
-	    var answ = JSON.parse(body);
-	    
+      var answ = JSON.parse(body);
+      
       if(answ.success){
         if(_this.last_block < answ.height){
           _this.last_block = answ.height;
@@ -268,7 +268,7 @@ Pool.prototype.updateBalances = function(){
                       if(updData.length){
                         _this.db.result(pgp.helpers.update(updData, ['?id', 'balance', 'total'], 'voters') + ' WHERE v.id = t.id')
                         .then(rdata => {
-                          _this.log("INF", "Pool forge new block. Height: "+_this.last_block+" | Voters reward: "+_this.lsk_convert(voters_reward).toFixed(8));
+                          _this.log("INF", "Pool forged a new block! Height: "+_this.last_block+" | Voter's reward: "+_this.lsk_convert(voters_reward).toFixed(8));
                         })
                         .catch(error => {
                           _this.log("ERR", error.message || error);
@@ -297,7 +297,7 @@ Pool.prototype.updateBalances = function(){
                       if(updData.length){
                         _this.db.result(pgp.helpers.update(updData, ['?id', 'balance'], 'poolfees') + ' WHERE v.id = t.id')
                         .then(rdata => {
-                          _this.log("INF", "Pool forge new block. Height: "+_this.last_block+" | Pool reward: "+_this.lsk_convert(pool_reward).toFixed(8));
+                          _this.log("INF", "Pool forged a new block! Height: "+_this.last_block+" | Pool reward: "+_this.lsk_convert(pool_reward).toFixed(8));
                         })
                         .catch(error => {
                           _this.log("ERR", error.message || error);
@@ -308,7 +308,7 @@ Pool.prototype.updateBalances = function(){
                       _this.log("ERR", error.message || error);
                     });
                   } else {
-                    _this.log("INF", "Pool reseived new block. Height: "+_this.last_block);
+                    _this.log("INF", "Pool received new block. Height: "+_this.last_block);
                   }
                 }
               } else {
@@ -362,7 +362,7 @@ Pool.prototype.Withdrawal = function(){
                     ) + ' WHERE "id" = '+pdata.id
                   )
                   .then(rdata => {
-                    _this.log("INF", "Payout time: Withdrawal pool balance to voter address. TXID: "+answ.transactionId);
+                    _this.log("INF", "Payout time: Withdrawing pool balance to voter address. TXID: "+answ.transactionId);
                   })
                   .catch(error => {
                     _this.log("ERR", error.message || error);
@@ -381,13 +381,13 @@ Pool.prototype.Withdrawal = function(){
                     'withdrawal_history')
                   )
                   .then(resd => {
-                    _this.log("INF", "Payout time: Update payout history");
+                    _this.log("INF", "Payout time: Updating payout history.");
                   })
                   .catch(error => {
                     _this.log("ERR", error.message || error);
                   });
                 } else {
-                  _this.log("ERR", "Transaction not sended: "+answ);
+                  _this.log("ERR", "Transaction not sent: "+answ);
                 }
               } else {
                 _this.log("ERR", error.syscall+" "+error.code+" "+error.address+":"+error.port);
@@ -397,7 +397,7 @@ Pool.prototype.Withdrawal = function(){
         })(rdata[i]);
       }
     } else {
-      _this.log("INF", "Payout time: Not have voters balances with minimum amout for withdrawal!");
+      _this.log("INF", "Payout time: No voter balances matching minimum withdrawal amount!");
     }
   })
   .catch(error => {
@@ -434,13 +434,13 @@ Pool.prototype.Withdrawal = function(){
                     ) + ' WHERE "id" = '+pdata.id
                   )
                   .then(rdata => {
-                    _this.log("INF", "Payout time: Withdrawal pool balance to poolfees address. TXID: "+answ.transactionId);
+                    _this.log("INF", "Payout time: Withdrawing pool balance to pool-fee address. TXID: "+answ.transactionId);
                   })
                   .catch(error => {
                     _this.log("ERR", error.message || error);
                   });
                 } else {
-                  _this.log("ERR", "Transaction not sended: "+answ);
+                  _this.log("ERR", "Transaction not sent: "+answ);
                 }
               } else {
                 _this.log("ERR", error.syscall+" "+error.code+" "+error.address+":"+error.port);
@@ -450,7 +450,7 @@ Pool.prototype.Withdrawal = function(){
         })(rdata[i]);
       }
     } else {
-      _this.log("INF", "Payout time: Not have poolfees balances with minimum amout for withdrawal!");
+      _this.log("INF", "Payout time: Pool-fee balance does not match minimum withdrawal amount!");
     }
   })
   .catch(error => {
@@ -488,7 +488,7 @@ Pool.prototype.updatePoolFeesAddress = function(){
         //Update poolfees table
         _this.db.result(pgp.helpers.insert(addAddrs, ['address', 'balance', 'percent'], 'poolfees'))
         .then(rdata => {
-          _this.log("INF", "Add/Change fees addresses.");
+          _this.log("INF", "Add/Change fee addresses.");
         })
         .catch(error => {
         _this.log("ERR", error.message || error);
@@ -499,7 +499,7 @@ Pool.prototype.updatePoolFeesAddress = function(){
       _this.log("ERR", error.message || error);
     });
   } else {
-    _this.log("INF", "Pool fees addresses not set in config");
+    _this.log("INF", "Pool-fee addresses not set in config.");
   }
 }
 
