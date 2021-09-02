@@ -74,15 +74,10 @@ router.get('/address/:address', function (req, res) {
 //AJAX: get balance history
 router.get('/aget_balance', function(req, res){
   if(req.xhr){
-    var edata = [];
-
-    pool.db.any("SELECT * FROM balance_history WHERE voter_id='"+data.voter_id+"'")
+    pool.db.any("SELECT voter_id, balance, timestamp FROM balance_history WHERE voter_id='"+data.voter_id+"'")
     .then(rdata => {
-      for(var i = 0;  i < rdata.length; i++) {
-        edata.push([parseFloat(rdata[i].timestamp), beddowsAsLsk(rdata[i].balance)]);
-      }
-
-      res.send(edata);
+      const data = rdata.map(function(item) { return [parseFloat(item['timestamp']), beddowsAsLsk(item['balance'], true)]});
+      res.send(data);
     });
   } else {
     data.MAINMENU = menuBuilder(req.baseUrl);

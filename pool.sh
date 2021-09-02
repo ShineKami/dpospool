@@ -186,7 +186,6 @@ start_pool() {
     check_node_status
     exit 1
   else
-    start_postgresql
     pm2 start dpospool.js -n $SCRIPT_NAME -l $LOG_APP_FILE &> /dev/null;
     if [ $? == 0 ]; then
       echo "√ $SCRIPT_NAME started successfully."
@@ -294,6 +293,7 @@ case $1 in
 	  install_pool
 	  ;;
 	"start_node")
+    start_postgresql
 	  start_pool
 	  ;;
 	"start")

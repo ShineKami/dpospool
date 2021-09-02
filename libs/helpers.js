@@ -20,8 +20,12 @@ function lskAsBeddows(num){
     return Number(num * Math.pow(10, 8));
 }
 //Convert beddows to lsk
-function beddowsAsLsk(num){
+function beddowsAsLsk(num, flag){
+  if(!flag){
     return (num * Math.pow(10, -8)).toLocaleString();
+  } else {
+    return Number(num * Math.pow(10, -8));    
+  }
 }
 
 //Menu builder

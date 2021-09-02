@@ -22,67 +22,42 @@ router.get('/', function (req, res) {
 
 
 //AJAX: Get data rank
-router.get('/aget_rank', function (req, res) {
+router.get('/aget/:type', function (req, res) {
 	if(req.xhr){
- 		var edata = [];
+ 		let data_type = req.params.type;
 
-	  pool.db.any("SELECT * FROM pool_history")
-	  .then(rdata => {
-	  	for(var i = 0;  i < rdata.length; i++) {
-	  		edata.push([parseFloat(rdata[i].timestamp), rdata[i].rank]);
-	  	}
+ 		switch(data_type){
+  		case 'rank': 
+			  pool.db.any("SELECT rank, timestamp FROM pool_history")
+			  .then(rdata => {
+			  	const data = rdata.map(function(item) { return [parseFloat(item['timestamp']), item['rank']]});
+			  	res.send(data);
+			  });
+  		break;
 
-	  	res.send(edata);
-	  });
+  		case 'balance': 
+			  pool.db.any("SELECT balance, timestamp FROM pool_history")
+			  .then(rdata => {
+			  	const data = rdata.map(function(item) {	return [parseFloat(item['timestamp']), beddowsAsLsk(item['balance'], true)]});
+			  	res.send(data);
+			  });
+  		break;
+
+  		case 'vcount': 
+			  pool.db.any("SELECT vcount, timestamp FROM pool_history")
+			  .then(rdata => {
+			  	const data = rdata.map(function(item) { return [parseFloat(item['timestamp']), item['vcount']]});
+			  	res.send(data);
+			  });
+  		break;
+
+  		default: res.send([]);
+  	}
 	} else {
 		data.MAINMENU = menuBuilder(req.baseUrl);
 		data.message = 'Is not Ajax request!';
 
-		log("ERR", "'/aget_rank' "+data.message);
-    res.render('error', data);
-	}
-});
-
-//AJAX: Get data balance
-router.get('/aget_balance', function (req, res) {
-	if(req.xhr){
-	 	var edata = [];
-
-	  pool.db.any("SELECT * FROM pool_history")
-	  .then(rdata => {
-	  	for(var i = 0;  i < rdata.length; i++) {
-	  		edata.push([parseFloat(rdata[i].timestamp), beddowsAsLsk(rdata[i].balance)]);
-	  	}
-
-	  	res.send(edata);
-	  });
-  } else {
-		data.MAINMENU = menuBuilder(req.baseUrl);
-		data.message = 'Is not Ajax request!';
-
-		log("ERR", "'/aget_balance' "+data.message);
-    res.render('error', data);
-	}
-});
-
-//AJAX: Get data vcout
-router.get('/aget_vcount', function (req, res) {
-	if(req.xhr){
-	 	var edata = [];
-
-	  pool.db.any("SELECT * FROM pool_history")
-	  .then(rdata => {
-	  	for(var i = 0;  i < rdata.length; i++) {
-	  		edata.push([parseFloat(rdata[i].timestamp), rdata[i].vcount]);
-	  	}
-
-	  	res.send(edata);
-	  });
-  } else {
-		data.MAINMENU = menuBuilder(req.baseUrl);
-		data.message = 'Is not Ajax request!';
-
-		log("ERR", "'/aget_vcount' "+data.message);
+		log("ERR", "'/aget' "+data.message);
     res.render('error', data);
 	}
 });

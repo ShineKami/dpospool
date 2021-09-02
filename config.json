@@ -5,7 +5,7 @@
 			"exist": ["~/.lisk/lisk-core", "ws://localhost:8080/ws"]
 		},
 		"network": {
-			"active": 0,
+			"active": 1,
 			"exist": [{
 				"name": "MainNet",
 				"networkID": "4c09e6a781fc4c7bdb936ee815de8f94190f8a7519becd9de2081832be309a99",
@@ -27,7 +27,7 @@
 		"dbpass": "password"
 	},
 	"delegate": {
-		"address": ""
+		"address": "lskch87o44r7b5h2n2rgmreozvwd4z2u3ohyzkqfs"
 	},
 	"pool": {
 		"name": "Pool",
@@ -39,7 +39,7 @@
 		"withdrawal_time": 86400,
 		"withdrawal_min": 2,
 		"withdrawal_pool_fees": [{
-			"address": "",
+			"address": "lskch87o44r7b5h2n2rgmreozvwd4z2u3ohyzkqfs",
 			"percent": 100
 		}],
 		"payouts": {

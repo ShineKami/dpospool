@@ -5,6 +5,8 @@ pgsql/data
 node_modules
 sql/dpospool_dump.sql
 sql/update_scheme.sql
+config.json
+package-lock.json
 
 public_src/bower_components
 public_src/node_modules
