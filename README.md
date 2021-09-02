@@ -31,6 +31,6 @@ bash pool.sh payouts - pay pool reward to voters("cron" for automatic payouts)
 bash pool.sh help - see all commands
 </pre>
 
-#Configure
-All pool configuration in "config.json", edit "config.json" before "bash pool.sh install" and set "login, pass, network etc."
+#Configure<br>
+All pool configuration in "config.json", edit "config.json" before "bash pool.sh install" and set "login, pass, network etc."<br>
 After change "config.json" for the changes to take effect on work pool use "bash pool.sh reload"
