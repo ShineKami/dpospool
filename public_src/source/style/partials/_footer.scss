@@ -1,0 +1,23 @@
+.mfooter{
+	hr{
+		margin: 0;
+	}
+	.menu{
+		padding: 20px 0px;
+		li{
+			display: inline-block;
+			border-right: 1px solid #cacdce;
+			padding: 0px 15px;
+			&:first-child{
+				padding-left: 0px;
+			}
+			&:last-child{
+				border-right: 0px;
+			}
+		}
+	}
+	.powered_by{
+		padding: 20px 0px;
+		text-align: right;
+	}
+}

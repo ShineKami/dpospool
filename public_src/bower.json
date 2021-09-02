@@ -1,0 +1,19 @@
+{
+  "name": "Pool_Template-LISK",
+  "version": "1.0.0",
+  "author": {
+    "name": "Stanislav Vyshynskiy",
+    "email": "shinekami@madys.net",
+    "url": "https://lisk-ua.net/"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "2.*",
+    "normalize-scss": "~3.0.3",
+    "bootstrap-sass": "^3.3.7",
+    "compass-mixins": "^1.0.2",
+    "jquery-asPieProgress": "^0.4.6",
+    "highcharts": "^5.0.9"
+  },
+  "devDependencies": {}
+}

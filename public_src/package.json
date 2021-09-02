@@ -1,0 +1,36 @@
+{
+  "name": "Pool_Template-LISK",
+  "version": "2.0.0",
+  "description": "Pool template for LISK",
+  "author": {
+    "name": "Stanislav Vyshynskiy",
+    "email": "shinekami@madys.net",
+    "url": "https://lisk-ua.net/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ShineKami/lskpool.git"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/register": "^7.15.3",
+    "dart-sass": "^1.25.0",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-file-include": "^2.3.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "<8.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-util": "^3.0.8",
+    "imagemin-pngquant": "^9.0.2",
+    "jquery": "^3.6.0",
+    "node-normalize-scss": "^8.1.2"
+  }
+}

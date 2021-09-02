@@ -1,0 +1,9 @@
+Name: libecpg_compat
+Description: PostgreSQL libecpg_compat library
+Url: http://www.postgresql.org/
+Version: 9.6.2
+Requires: 
+Requires.private: libecpg libpgtypes
+Cflags: -I/home/lisk/lisk-build/src/postgresql-9.6.2/pgsql/include
+Libs: -L/home/lisk/lisk-build/src/postgresql-9.6.2/pgsql/lib -lecpg_compat
+Libs.private:  -lpq -lm

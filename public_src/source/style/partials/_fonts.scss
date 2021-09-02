@@ -1,0 +1,34 @@
+/* Fonts */
+@font-face {
+	font-family: 'Rob_reg';
+	src: url('../fonts/Roboto-Regular.ttf');
+}
+@font-face {
+	font-family: 'Rob_black';
+	src: url('../fonts/Roboto-Black.ttf');
+}
+@font-face {
+	font-family: 'Rob_light';
+	src: url('../fonts/Roboto-Light.ttf');
+}
+@font-face {
+	font-family: 'Rob_med';
+	src: url('../fonts/Roboto-Medium.ttf');
+}
+
+/* Font familys */
+$ff-reg: "Rob_reg";
+$ff-black: "Rob_black";
+$ff-light: "Rob_light";
+$ff-med: "Rob_med";
+
+/* Font sizes */
+$fs-small: 12px;
+$fs-norm: 15px;
+$fs-norm1: 20px;
+$fs-big: 30px;
+$fs-big1: 36px;
+
+/* Font colors */
+$fc-dark: #191d1f;
+$fc-light: #fff;

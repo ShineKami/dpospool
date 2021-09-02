@@ -1,0 +1,11 @@
+@media (max-width: 768px){
+	.mfooter{
+		.menu, .powered_by{
+			text-align: center !important;
+		}
+	}
+	.nav.navbar-nav li{
+		display: block !important;
+		text-align: center;
+	}
+}

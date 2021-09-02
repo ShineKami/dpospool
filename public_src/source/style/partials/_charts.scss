@@ -1,0 +1,49 @@
+.highcharts-scrollbar-track{
+	fill: #d8e9d6;
+	height: 8px !important;
+}
+.highcharts-navigator-mask-inside{
+	fill: rgba(102, 211, 3, .15);
+}
+.highcharts-scrollbar-thumb{
+	fill: #0054ff;
+	height: 8px !important;
+}
+.highcharts-scrollbar-button, .highcharts-scrollbar-arrow{
+	display: none;
+}
+.highcharts-navigator-outline{
+	height: 8px !important;
+	stroke: none;
+}
+.highcharts-navigator-handle{
+	fill: #0054ff !important;
+	stroke: #fff;
+}
+.highcharts-scrollbar-rifles{
+	stroke: #fff;
+}
+.highcharts-navigator-series .highcharts-graph{
+	stroke: #65d302;
+	stroke-width: 2;
+}
+.highcharts-credits{
+	display: none;
+}
+.highcharts-input-group{
+	display: none;
+}
+.highcharts-navigator-xaxis{
+	text{
+		font-size: 14px !important;
+		color: #aeaeae !important;
+		fill: #aeaeae !important;
+		font-weight: normal !important;
+		font-family: "Rob_reg";
+	}
+}
+.highcharts-range-selector-buttons{
+	&>text{
+		display: none;
+	}
+}

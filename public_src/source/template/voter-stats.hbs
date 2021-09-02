@@ -1,0 +1,77 @@
+<div class="container middle">
+	<div class="vstat">
+		<h1 class="page_title">VOTER STATISTICS</h1>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="row">
+						<div class="col-md-8 col-sm-6">
+							<div class="topbox_item topbox_item_icon1">
+								Voter address
+								<br>
+								<a href="{{explorer_url}}" class="address" target="_blank" title="{{address}}">{{address}}</a>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6">
+							<div class="topbox_item topbox_item_icon2">
+								Current pending balance
+								<br>
+								<span class="balance">{{balance}} Ⱡ</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br><br>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box_title">Balance</div>
+					<div class="box_cont">
+						<div class="hcharts" data-url='/voter-stats/aget_balance/' data-ptitle="Balance (LSK)" data-pdecimal="3"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br><br>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box_title">Last 50 Payments</div>
+					<div class="box_cont tab" id="withdrawal">
+						<div class="scroll_wrap">
+							<table class="table">
+								<thead>
+									<tr class="tr_head">
+										<th class="tr1">TXID</th>
+										<th class="tr2"><center>Time</center></th>
+										<th class="tr3">Fee</th>
+										<th class="tr4">Reward</th>
+									</tr>
+								</thead>
+								<tbody>
+									{{#if withdrawal}}
+										{{#each withdrawal}}
+										<tr class="tr_item">
+											<td class="tr1"><a href="{{explorer_url}}" target="_blank" title="Transaction: {{txid}}"/>{{txid_short}}</a></td>
+											<td class="tr2">{{date}}</td>
+											<td class="tr3">{{fees}} Ⱡ</td>
+											<td class="tr4">{{reward}} Ⱡ</div>
+										</tr>
+										{{/each}}
+									{{else}}
+										<tr class="tr_item">
+											<td colspan="4" style="text-align: center;">You have not received payments yet</td>
+										</tr>
+									{{/if}}
+								</tbody>
+							</table>
+						</div>				
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>

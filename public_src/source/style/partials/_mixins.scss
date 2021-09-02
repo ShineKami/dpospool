@@ -1,0 +1,13 @@
+//Mixins
+@mixin setfont($ff: $ff-reg, $fs: $fs-norm, $fc: $fc-dark) {
+	font-family: $ff;
+	font-size: $fs;
+	color: $fc;
+}
+
+@mixin transition($transition){
+	-webkit-transition: $transition;
+	-moz-transition: $transition;
+	-o-transition: $transition;
+	transition: $transition;
+}

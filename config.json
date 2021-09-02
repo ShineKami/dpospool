@@ -1,0 +1,51 @@
+{
+	"blockchainApp": {
+		"rpc_endpoint": {
+			"active": 0,
+			"exist": ["~/.lisk/lisk-core", "ws://localhost:8080/ws"]
+		},
+		"network": {
+			"active": 0,
+			"exist": [{
+				"name": "MainNet",
+				"networkID": "4c09e6a781fc4c7bdb936ee815de8f94190f8a7519becd9de2081832be309a99",
+				"serviceAPI": "https://service.lisk.com/api/v2/",
+				"explorer": "https://liskscan.com/"
+				},{
+				"name": "TestNet",
+				"networkID": "15f0dacc1060e91818224a94286b13aa04279c640bd5d6f193182031d133df7c",
+				"serviceAPI": "https://testnet-service.lisk.com/api/v2/",			
+				"explorer": "https://testnet.liskscan.com/"
+			}]
+		}
+	},
+	"db": {
+		"dbhost": "0.0.0.0",
+		"dbport": "5433",
+		"dbname": "dpospool",
+		"dbuser": "dpospool",
+		"dbpass": "password"
+	},
+	"delegate": {
+		"address": ""
+	},
+	"pool": {
+		"name": "Pool",
+		"port": 3000,
+		"minVote": 10,
+		"maxVote": 1000000,
+		"showmore": 10,
+		"pool_fees": 30,
+		"withdrawal_time": 86400,
+		"withdrawal_min": 2,
+		"withdrawal_pool_fees": [{
+			"address": "",
+			"percent": 100
+		}],
+		"payouts": {
+			"pay_passphrase1": "",
+			"pay_passphrase2": false,
+			"pay_message": ""
+		}
+	}
+}

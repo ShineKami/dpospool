@@ -1,0 +1,349 @@
+.box{
+	background: #fff;
+	box-shadow: 0px 2px 9px 0px rgba(212, 220, 223, 0.25);
+	border-radius: 8px;
+	padding: 40px 50px;
+	line-height: 200%;
+}
+.box-tabs{
+	margin-top: 20px;
+	padding: 0px;
+	.tabsbtn{
+		border-top-right-radius: 8px;
+		border-top-left-radius: 8px;
+		padding: 0px 60px;
+		background: #e0eaff;
+		line-height: 80px;
+		li{
+			margin-right: 40px;
+			display: inline-block;
+			@include setfont($ff-reg, 18px, #88abf0);
+			text-transform: uppercase;
+			cursor: pointer;
+			@include transition(all .3s);
+			&:hover{
+				color: #001eff;
+			}
+			&:last-child{
+				margin-right: 0px;
+			}
+		}
+		.active{
+			color: #001eff;
+			position: relative;
+			&::after{
+				content: '';
+				position: absolute;
+				left: 0px;
+				width: 100%;
+				bottom: 0px;
+				height: 3px;
+				background: #001eff;
+				box-shadow: 0px -2px 6px 0px rgba(0, 30, 255, 0.35);
+			}
+		}
+	}
+	.tabs{
+		padding: 50px 60px;
+	}
+}
+.tab{
+	display: none;
+	.scroll_wrap{
+		overflow: hidden;
+		overflow-x: visible; 
+		table{
+			min-width: 620px;
+			thead{
+				th{
+					@include setfont($ff-reg, $fs-norm, #aeaeae);
+					font-weight: normal;
+					border: none;
+					&:last-child{
+						text-align: right;
+					}
+				}
+				.tr1{
+					padding-left: 60px;
+				}
+			}
+			tbody{
+				td{
+					line-height: 34px;
+					border: none;
+					border-bottom: 1px solid #f2f2f2;
+					padding: 25px 8px;
+					&:last-child{
+						text-align: right;
+					}
+				}
+			}
+			.tr3{
+				text-align: right;
+			}
+			.d-icon{
+				&:before{
+					content: 'D';
+					display: inline-block;
+					width: 34px;
+					height: 34px;
+					padding-left: 2px;
+					text-align: center;
+					border-radius: 50%;
+					background: #65d302;
+					margin-right: 20px;
+					@include setfont($ff-black, $fs-norm, $fc-light);
+				}
+			}
+			.l-icon{
+				color: #aeaeae;
+				&:before{
+					content: 'L';
+					background: #ffb500;
+				}
+			}
+		}
+	}
+	.bstable{
+		.tr_head{
+			color: #aeaeae;
+			.name{
+				padding-left: 70px;
+			}
+			.balance,.ofpool{
+				text-align: right;
+			}
+		}
+		.tr_item{
+			position: relative;
+			&::after{
+				width: 100%;
+				content: '';
+				bottom: 0;
+				left: 0;
+				border-bottom: 1px solid #f2f2f2;
+			}
+			&>div{
+				margin: 16px 0px;
+			}
+			.name{
+				.icon{
+					width: 34px;
+					height: 34px;
+					line-height: 34px;
+					text-align: center;
+					border-radius: 50%;
+					display: inline-block;
+					margin-right: 15px;
+					@include setfont($ff-black, $fs-norm, #fff);
+				}
+				.icon.d{
+					background: #65d302;
+				}
+				.icon.l{
+					background: #ffb500;
+				}
+			}
+			.balance,.ofpool{
+				text-align: right;
+			}
+		}
+	}
+	.showmore{
+		margin-top: 15px;
+		padding: 10px;
+		text-align: center;
+		background: #e0eaff;
+		color: #0054ff;
+		border-radius: 8px;
+		cursor: pointer;
+		@include transition(all .3s);
+		&:hover{
+			background: #4c84f7;
+			color: #fff;
+		}
+	}
+}
+
+.middle{
+	margin-bottom: 100px;
+	padding-top: 80px;
+	.home{
+		margin-bottom: 35px;
+		margin-top: -115px;
+		position: relative;
+		.box-home{
+			position: relative;
+			.title{
+				margin: 0px;
+				margin-bottom: 20px;
+				@include setfont($ff-light, $fs-big1, $fc-dark);
+			}
+			.text{
+				@include setfont();
+				span{
+					padding: 2px 5px;
+					border-radius: 3px;
+					background: #ffd510;
+				}
+			}
+			.btn-vote{
+				display: inline-block;
+				position: absolute;
+				border-radius: 4px;
+				margin-bottom: -30px;
+				bottom: 0;
+				left: 60px;
+				width: auto;
+				padding: 15px 30px;
+				background: #0054ff;
+				box-shadow: 0px 2px 10px 0px rgba(0, 84, 255, 0.35);
+				@include setfont($ff-med, $fs-norm1, #f2f6f7);
+				@include transition(all .3s);
+				&:hover{
+					background: #001eff;
+					box-shadow: 0px 2px 32px 0px rgba(0, 30, 255, 0.35);
+				}
+			}
+		}
+	}
+	.ostat{
+		.page_title{
+			margin: 0;
+			margin-bottom: 30px;
+			text-transform: uppercase;
+			@include setfont($ff-light, $fs-big1, #191d1f);
+			text-align: center;
+		}
+		.box{
+			.voter_form{
+				position: relative;
+				text-align: center;
+				padding-bottom: 20px;
+				input{
+					text-align: center;
+				}
+				input[type="button"]{
+					position: absolute;
+					bottom: -65px;
+					margin-left: auto;
+					margin-right: auto;
+					left: 0;
+					right: 0;
+					max-width: 96px;
+					width: 100%;
+				}
+			}
+		}
+	}
+	.pstat{
+		@extend .ostat;
+		.page_title{
+			text-align: left;
+			padding-left: 60px;
+		}
+		.box{
+			margin-bottom: 30px;
+			.item{
+				margin-bottom: 7px;
+				padding-bottom: 5px;
+				border-bottom: 1px solid #f2f2f2;
+				@include setfont($ff-reg, 17px);
+				.title{
+					@include setfont();
+				}
+				.mark{
+					background: none;
+					@include setfont($ff-reg, 17px, #0054ff);
+					@include transition(color .3s);
+				}
+				a:hover{
+					color: #001eff;
+				}
+			}
+			.forgStat{
+				margin-top: 35px;
+				margin-left: 20px;
+				div{
+					@include setfont();
+					margin-bottom: 5px;
+					&::before{
+						content: '';
+						display: inline-block;
+						margin-top: -4.5px;
+						margin-right: 8px;
+						width: 9px;
+						height: 9px;
+						border-radius: 50%;
+					}
+				}
+				.fb::before{
+					background: #65d302;
+				}
+				.mb::before{
+					background: #d8d8d8;
+				}
+			}
+		}
+	}
+	.vstat{
+		@extend .ostat;
+		.box{
+			.topbox_item{
+				@include setfont();
+				line-height: 160%;
+				.address{
+					@include setfont($ff-reg, 17px, #0054ff);
+					transition: .3s all;
+					&:hover{
+						opacity: 0.8;
+					}
+				}
+				.balance{
+					@include setfont($ff-reg, 17px);
+				}
+			}
+			.topbox_item_icon1{
+				padding-left: 30px;
+				background: url(../imgs/dg_icon2.png) no-repeat left 80%;
+				margin-bottom: 8px;
+			}
+			.topbox_item_icon2{
+				padding-left: 40px;
+				background: url(../imgs/balance.png) no-repeat left 80%;
+			}
+			.box_title{
+				@include setfont();
+				font-size: 18px;
+				margin-bottom: 30px
+			}
+			.box_cont{
+				display: block;
+				.tr1, .tr2{
+					padding-left: 0px;
+					text-align: left;
+				}
+				.tr3{
+					text-align: center;
+				}
+				.tr_item{
+					.tr3{
+						text-align: center;
+					}
+				}
+				.scroll_wrap{
+					table{
+						min-width: 800px;
+					}
+				}
+			}
+		}
+	}
+	.charts{
+		@extend .vstat;
+		.page_title{
+			text-align: left;
+			padding-left: 60px;
+		}
+	}
+}

@@ -1,0 +1,10 @@
+logs/*.log
+pids/*.pid
+public
+pgsql/data
+node_modules
+sql/dpospool_dump.sql
+sql/update_scheme.sql
+
+public_src/bower_components
+public_src/node_modules

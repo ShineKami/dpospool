@@ -1,0 +1,80 @@
+.mhead{
+	background: #0a1223;
+	.navbar{
+		min-height: 84px;
+		margin-bottom: 0px;
+		border: none;
+		a{
+			line-height: inherit;
+		}
+	}
+	.navbar-header{
+		min-height: 84px;
+		line-height: 84px;
+		.navbar-brand{
+			background: #0054ff;
+			line-height: 84px;
+			min-height: 84px;
+			text-align: center;
+			@include setfont($ff-black, $fs-big, #fff);
+			display: block;
+			padding: 0 30px;
+		}
+		.navbar-toggle,
+		.navbar-toggle:hover,
+		.navbar-toggle:focus {
+			border: 0;
+			border-radius: 0;
+			margin-top: 25px;
+			background-color: #0054ff;
+			.icon-bar{
+				background: #fff;
+			}
+		}
+	}
+	.navbar-nav.menu{
+		font-size: 0px;
+		li{
+			display: inline-block;
+			line-height: calc(84px - 3px);
+		}
+		li a,li.active a{
+			@include setfont($ff-reg, $fs-norm, #88abf0);
+			display: block;
+			padding: 0 20px;
+			background: transparent;
+			border-bottom: 3px solid transparent;
+			@include transition(all .3s);
+			&:hover{
+				background: #091444;
+				color: #f3f6f7;
+				border-bottom: 3px solid #001eff;
+			}
+		}
+		li.active a{
+			color: #f3f6f7;
+			background: #091444;
+			border-bottom: 3px solid #001eff;
+		}
+	}
+	.navbar-nav .dgInfo{
+		background: url(../imgs/dg_icon.png) no-repeat left center;
+		padding-left: 30px;
+		margin-left: 15px;
+		margin-right: 15px;
+		color: #f3f6f7;
+		display: inline-block;
+		a{
+			line-height: 84px;
+			padding: 0px;
+			display: inline;
+			&:hover{
+				background: transparent;
+			}
+		}
+	}
+	.topfon{
+		background: url(../imgs/topfon.png) no-repeat center center #1e1c3a;
+		height: 330px;
+	}
+}
