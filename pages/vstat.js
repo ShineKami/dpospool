@@ -32,7 +32,7 @@ router.get('/address/:address', function (req, res) {
     data.balance = beddowsAsLsk(rdata.balance);
     data.address = rdata.address;
     data.voter_id = rdata.id;
-    data.explorer_url = getExplorer(rdata.address);
+    data.explorer_url = getExplorer("account/"+rdata.address);
     data.id = rdata.id;
 
     var withdrawal = [];

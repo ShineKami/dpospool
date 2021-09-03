@@ -114,9 +114,13 @@ function log(type, message){
 //Lisk client
 const getClient = async () => {
   if (!clientCache) {
-  	if(rpc == 0){ clientCache = await apiClient.createIPCClient(RPC_ENDPOINT)};
-  	if(rpc == 1){ clientCache = await apiClient.createWSClient(RPC_ENDPOINT)};
+    switch(rpc.active){
+      case 0: clientCache = await apiClient.createIPCClient(RPC_ENDPOINT);
+      case 1: clientCache = await apiClient.createWSClient(RPC_ENDPOINT);
+      default: clientCache = await apiClient.createIPCClient("~/.lisk/lisk-core");
+    }
   }
+
   return clientCache;
 };
 

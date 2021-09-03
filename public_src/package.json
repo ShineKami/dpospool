@@ -32,5 +32,8 @@
     "imagemin-pngquant": "^9.0.2",
     "jquery": "^3.6.0",
     "node-normalize-scss": "^8.1.2"
+  },
+  "dependencies": {
+    "bower": "^1.8.12"
   }
 }

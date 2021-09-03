@@ -37,6 +37,7 @@ router.get('/', function(req, res, next) {
   data.total_support = beddowsAsLsk(pool.totalVote);
   data.self_vote = beddowsAsLsk(pool.selfVote);
   data.vote_cap = (100 - (pool.totalVote / (pool.selfVote * 10) * 100)).toFixed(2);
+  data.explorer_url = getExplorer("account/"+pool.address);
 
   if(pool.missedblocks>0){
     data.productivity = Number((100 - (pool.missedblocks/pool.forgedblocks * 100)).toFixed(2));

@@ -13,7 +13,7 @@ const minbal = lskAsBeddows(config.pool.withdrawal_min);
 
 function Payout(){		
 	//Select all voters
-	db.any("SELECT * FROM voters WHERE active = 'true' AND CAST(balance as bigint) > "+minbal)
+	db.any("SELECT * FROM voters WHERE CAST(balance as bigint) > "+minbal)
 	.then(rdata => {
 		//Check pool has voter for payouts
 		if(rdata.length > 0){
