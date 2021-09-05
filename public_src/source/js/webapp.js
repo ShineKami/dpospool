@@ -61,30 +61,36 @@
 
 		//Active voters list
 		$showmore.on('click', function(){
-			var tab_id = $(this).parent().attr('id'),
-					item_place = $("#"+tab_id+" tbody"),
-					item_count = item_place.find(".tr_item").length,
-					ajaxUrl = "/pool-stats/aget_"+tab_id+"/"+item_count;
+			var tab_id = $(this).parent().attr('id');
+			var	item_place = $("#"+tab_id+" tbody");
+			var	item_count = item_place.find(".tr_item").length;
+			var pageName = new URL(window.location.href),
+					pageName = ((pageName.pathname).split('/'))[1];
+			var	ajaxUrl = "/"+pageName+"/aget_"+tab_id+"/"+item_count;
 
 			$.get(ajaxUrl, function(data){
 				for(var i = 0; i < data.voters.length; i++){
-					if(tab_id === "voters"){
-						item_place.append(
-							'<tr class="tr_item sm_'+tab_id+'_item_'+i+'" style="display:none;">'+
-								'<td class="tr1"><div class="d-icon '+data.voters[i].icon+'">'+data.voters[i].username+'</div></td>'+
-								'<td class="tr2"><a href="'+data.voters[i].explorer_url+'" target="_blank" title="'+data.voters[i].username+'">'+data.voters[i].address+'</a></td>'+
-								'<td class="tr3">'+data.voters[i].vote+' Ⱡ</td>'+
-								'<td class="tr4">'+data.voters[i].pool_percent+'%</td>'+
-							'</tr>'
-						);
-					} else {
-						item_place.append(
-							'<tr class="tr_item sm_'+tab_id+'_item_'+i+'" style="display:none;">'+
-								'<td class="tr1"><div class="d-icon '+data.voters[i].icon+'"><a href="/voter-stats/address/'+data.voters[i].address+'" target="_blank" title="'+data.voters[i].address+'">'+data.voters[i].address+'</a></div></td>'+
-								'<td class="tr3">'+data.voters[i].balance+' Ⱡ</td>'+
-								'<td class="tr3">'+data.voters[i].total+' Ⱡ</td>'+
-							'</tr>'
-						);
+					switch(tab_id){
+						case 'voters':
+							item_place.append(
+								'<tr class="tr_item sm_'+tab_id+'_item_'+i+'" style="display:none;">'+
+									'<td class="tr1"><div class="d-icon '+data.voters[i].icon+'">'+data.voters[i].username+'</div></td>'+
+									'<td class="tr2"><a href="'+data.voters[i].explorer_url+'" target="_blank" title="'+data.voters[i].username+'">'+data.voters[i].address+'</a></td>'+
+									'<td class="tr3">'+data.voters[i].vote+' Ⱡ</td>'+
+									'<td class="tr4">'+data.voters[i].pool_percent+'%</td>'+
+								'</tr>'
+							);
+						break;
+
+						case 'reward':
+							item_place.append(
+								'<tr class="tr_item sm_'+tab_id+'_item_'+i+'" style="display:none;">'+
+									'<td class="tr1"><div class="d-icon '+data.voters[i].icon+'"><a href="/voter-stats/address/'+data.voters[i].address+'" target="_blank" title="'+data.voters[i].address+'">'+data.voters[i].address+'</a></div></td>'+
+									'<td class="tr3">'+data.voters[i].balance+' Ⱡ</td>'+
+									'<td class="tr3">'+data.voters[i].total+' Ⱡ</td>'+
+								'</tr>'
+							);
+						break;
 					}
 
 					item_place.find('.sm_'+tab_id+'_item_'+i).show('slow');

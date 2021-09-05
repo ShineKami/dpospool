@@ -1,5 +1,5 @@
-const config = require('../config.json');
 const { getAPI, lskAsBeddows, beddowsAsLsk, log, voteCheck, clearVoteList } = require('./helpers');
+const config = require('../config.json');
 const request = require('request');
 const pgp = require("pg-promise")();
 const got = require('got');
