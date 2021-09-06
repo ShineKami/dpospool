@@ -1,14 +1,5 @@
-const { apiClient } = require('@liskhq/lisk-client');
 const config = require('../config.json');
-const network = config.blockchainApp.network;
-const rpc = config.blockchainApp.rpc_endpoint;
-const RPC_ENDPOINT = rpc.exist[rpc.active];
-let clientCache;
-
-//Get api url
-function getAPI(url){
-	return network.exist[network.active].serviceAPI+url;
-}
+const network = config.blockchain.network;
 
 //Get explorer url(mainnet/testnet)
 function getExplorer(url){
@@ -63,39 +54,43 @@ function menuBuilder(urlParam){
   return menu;
 }
 
-//Amount checker
-function voteCheck(amount){
-  const am = Number(amount);
+//Time out format
+function timeFormat(time){
+  let d = new Date(+time);
+      d = ("0" + d.getDate()).slice(-2)+"."+("0" + (d.getMonth() + 1)).slice(-2)+"."+d.getFullYear()+" | "+("0" + d.getHours()).slice(-2)+":"+("0" + d.getMinutes()).slice(-2)+":"+("0" + d.getSeconds()).slice(-2);
+  return d;
+}
+
+//Calculate local vote weight
+function getLocalVoteWeight(voteList){
+  let localVoteWeight = 0;
+
+  for(let i=0; i<voteList.length; i++){
+    if(voteCheck(voteList[i])){
+      localVoteWeight+=Number(voteList[i].amount);
+    }
+  }
+
+  return localVoteWeight;
+}
+
+//Vote checker
+function voteCheck(vote){
+  const am = Number(vote.amount);
   const maxVote = lskAsBeddows(config.pool.maxVote);
   const minVote = lskAsBeddows(config.pool.minVote);
+  const excludeList = config.pool.exclude_votes;
+  const find = excludeList.filter(x => x === vote.address);
 
-  if(am > 0 && am >= minVote){
-    if(am <= maxVote){
-      return true;
+  if(!find.length){
+    if(am > 0 && am >= minVote){
+      if(am <= maxVote){
+        return true;
+      }
     }
   }
 
   return false;
-}
-
-//Clear voteList
-function clearVoteList(voteList){
-    const clearVoteList = voteList.filter(x => {
-      return x.address != config.delegate.address;
-    });
-
-    const mergedVote = clearVoteList.reduce((prev, cur) => {
-      const index = prev.findIndex(v => v.address === cur.address);
-      
-      if(index === -1) {
-        prev.push(cur);
-      } else {
-        prev[index].amount = (Number(prev[index].amount) + Number(cur.amount)).toString();
-      }
-      return prev;
-    }, []); 
-
-    return mergedVote;
 }
 
 //Log
@@ -112,16 +107,5 @@ function log(type, message){
 }
 
 //Lisk client
-const getClient = async () => {
-  if (!clientCache) {
-    switch(rpc.active){
-      case 0: clientCache = await apiClient.createIPCClient(RPC_ENDPOINT);
-      case 1: clientCache = await apiClient.createWSClient(RPC_ENDPOINT);
-      default: clientCache = await apiClient.createIPCClient("~/.lisk/lisk-core");
-    }
-  }
 
-  return clientCache;
-};
-
-module.exports = { getClient, getAPI, getExplorer, lskAsBeddows, beddowsAsLsk, menuBuilder, voteCheck, clearVoteList, log};
+module.exports = { getExplorer, lskAsBeddows, beddowsAsLsk, menuBuilder, voteCheck, getLocalVoteWeight, timeFormat, log };

@@ -1,28 +1,22 @@
 //Load modules
 const express = require('express');
-const request = require('request');
 const router = express.Router();
 const pool = require('../libs/pool.js');
 const { menuBuilder, log } = require('../libs/helpers.js')
 
-//Init config
-const config = pool.config;
-
 //Page tags
 let data = {
-  "TITLE": config.pool.name,
-	"daddr": config.delegate.address,
-	"pshare": 100 - config.pool.pool_fees,
-	"pptime": config.pool.withdrawal_time / 3600,
-	"ppmin": config.pool.withdrawal_min,
+  "TITLE": pool.poolname,
+	"daddr": pool.address,
+	"pshare": 100 - pool.poolFees,
+	"pptime": pool.payTime / 3600,
+	"ppmin": pool.payMin,
 };
 
 //Home page
 router.get('/', function (req, res, next) {
 	data.MAINMENU = menuBuilder(req.baseUrl);
-
-  let network = config.blockchainApp.network;
-  data.network = network.exist[network.active].name;
+  data.network = pool.network.exist[pool.network.active].name;
 
   //Set tags
   data.username = pool.name;

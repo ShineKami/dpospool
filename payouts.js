@@ -9,7 +9,7 @@ const db = pgp("postgres://"+config.db.dbuser+":"+config.db.dbpass+"@"+config.db
 
 const network = config.blockchainApp.network;
 const { publicKey, address } = cryptography.getAddressAndPublicKeyFromPassphrase(config.pool.payouts.pay_passphrase1);
-const minbal = lskAsBeddows(config.pool.withdrawal_min);
+const minbal = lskAsBeddows(config.payouts.mininal);
 
 function Payout(){		
 	//Select all voters

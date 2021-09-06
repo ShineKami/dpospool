@@ -1,16 +1,12 @@
 //Init modules
 const express = require('express');
-const request = require('request');
 const router = express.Router();
 const pool = require('../libs/pool.js');
 const { beddowsAsLsk, menuBuilder, getExplorer, log } = require('../libs/helpers.js');
 
-//Init config
-const config = pool.config;
-
 //Page tags
 let data = {
-  "TITLE": config.pool.name
+  "TITLE": pool.poolname
 };
 
 //Charts

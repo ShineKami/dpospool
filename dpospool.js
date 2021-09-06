@@ -3,7 +3,8 @@
 /**
  * Module dependencies.
  */
-var { app, config } = require('./app');
+const config = require('./config.json');
+var app = require('./app');
 var debug = require('debug')('dpospool:server');
 var http = require('http');
 var port = normalizePort(config.pool.port || '3000');

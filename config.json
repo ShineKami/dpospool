@@ -1,9 +1,5 @@
 {
-	"blockchainApp": {
-		"rpc_endpoint": {
-			"active": 0,
-			"exist": ["~/.lisk/lisk-core", "ws://localhost:8080/ws"]
-		},
+	"blockchain": {
 		"network": {
 			"active": 0,
 			"exist": [{
@@ -14,7 +10,7 @@
 				},{
 				"name": "TestNet",
 				"networkID": "15f0dacc1060e91818224a94286b13aa04279c640bd5d6f193182031d133df7c",
-				"serviceAPI": "https://testnet-service.lisk.com/api/v2/",			
+				"serviceAPI": "https://testnet-service.lisk.com/api/v2/",
 				"explorer": "https://testnet.liskscan.com/"
 			}]
 		}
@@ -26,26 +22,25 @@
 		"dbuser": "dpospool",
 		"dbpass": "password"
 	},
-	"delegate": {
-		"address": ""
-	},
 	"pool": {
 		"name": "Pool",
+		"delegateAddress": "",
 		"port": 3000,
 		"minVote": 10,
 		"maxVote": 1000000,
 		"showmore": 10,
-		"pool_fees": 30,
+		"poolfees": 30,
 		"withdrawal_time": 86400,
-		"withdrawal_min": 2,
-		"withdrawal_pool_fees": [{
+		"exclude_votes": []
+	},
+	"payouts": {
+		"passphrase1": "",
+		"passphrase2": false,
+		"message": "",
+		"minimal": 2,
+		"poolfees":[{
 			"address": "",
 			"percent": 100
-		}],
-		"payouts": {
-			"pay_passphrase1": "",
-			"pay_passphrase2": false,
-			"pay_message": ""
-		}
+		}]
 	}
 }

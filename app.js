@@ -2,10 +2,6 @@
 const express = require('express');
 const exphbs  = require('express-handlebars');
 const pool = require('./libs/pool.js');
-const { menuBuilder, log } = require('./libs/helpers.js');
-
-//Init config
-var config = pool.config;
 
 //Routes
 var home = require('./pages/home');
@@ -42,22 +38,10 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  //Page tags
-  var data = {
-    'TITLE': config.pool.name,
-    'MAINMENU': menuBuilder(req.originalUrl),
-    'message': err.message
-  }
-
   // render the error page
-  log("ERR", err.message);
+  pool.loger("ERR", err.message);
   res.status(err.status || 500);
   res.render('error', data);
 });
 
-//Pool monitoring
-if(config.delegate.address){
-  pool.poolProcessing();
-}
-
-module.exports = { app, config }
+module.exports = app;

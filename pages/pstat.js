@@ -1,18 +1,13 @@
 //Init modules
 const express = require('express');
-const request = require('request');
 const router = express.Router();
 const pool = require('../libs/pool.js');
 const { beddowsAsLsk, menuBuilder, getExplorer, log } = require('../libs/helpers.js')
 
-//Init config
-var config = pool.config;
-var network = config.blockchainApp.network;
-
 //Page tags
 var data = {
-  "TITLE": config.pool.name,
-  "network": network.exist[network.active].name
+  "TITLE": pool.poolname,
+  "network": pool.network.exist[pool.network.active].name
 };
 
 //Showmore
@@ -46,7 +41,7 @@ router.get('/', function(req, res, next) {
   }
 
   //Voters List
-  pool.db.any("SELECT * FROM voters ORDER BY vote DESC LIMIT "+config.pool.showmore)
+  pool.db.any("SELECT * FROM voters ORDER BY vote DESC LIMIT "+pool.showMore)
   .then(rdata => {
     for(var i=0; i<rdata.length; i++){
       if(rdata[i].username == null){
@@ -70,7 +65,7 @@ router.get('/', function(req, res, next) {
       });
     }
 
-    if(pool.votesCount > config.pool.showmore){
+    if(pool.votesCount > pool.showMore){
       data.showmore = true;
     }
 
@@ -89,7 +84,7 @@ router.get('/', function(req, res, next) {
 router.get('/aget_voters/:num', function(req, res) {
   if(req.xhr){
     var si_count = req.params.num,
-        si_count_next = parseInt(si_count) + parseInt(config.pool.showmore),
+        si_count_next = parseInt(si_count) + parseInt(pool.showMore),
         end = false;
 
     if(si_count_next >= pool.votesCount){
@@ -97,7 +92,7 @@ router.get('/aget_voters/:num', function(req, res) {
     }
 
     //Voters List
-    pool.db.any("SELECT * FROM voters ORDER BY vote DESC OFFSET "+si_count+" LIMIT "+config.pool.showmore)
+    pool.db.any("SELECT * FROM voters ORDER BY vote DESC OFFSET "+si_count+" LIMIT "+pool.showMore)
     .then(rdata => {
       var voters_list = [];
 
@@ -136,7 +131,7 @@ router.get('/aget_voters/:num', function(req, res) {
 router.get('/aget_reward/:num', function(req, res) {
   if(req.xhr){
     var si_count = req.params.num,
-        si_count_next = parseInt(si_count) + parseInt(config.pool.showmore),
+        si_count_next = parseInt(si_count) + parseInt(pool.showMore),
         end = false;
 
     if(si_count_next >= pool.votesCount){
@@ -144,7 +139,7 @@ router.get('/aget_reward/:num', function(req, res) {
     }
 
     //Voters Reward
-    pool.db.any("SELECT * FROM voters ORDER BY vote DESC OFFSET "+si_count+" LIMIT "+config.pool.showmore)
+    pool.db.any("SELECT * FROM voters ORDER BY vote DESC OFFSET "+si_count+" LIMIT "+pool.showMore)
     .then(rdata => {
       var voters_reward = [];
 

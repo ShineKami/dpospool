@@ -1,17 +1,13 @@
 //Init modules
 const express = require('express');
-const request = require('request');
 const router = express.Router();
 const pool = require('../libs/pool.js');
-const { beddowsAsLsk, menuBuilder, getExplorer, log } = require('../libs/helpers.js');
-
-//Init config
-const config = pool.config;
+const { beddowsAsLsk, menuBuilder, getExplorer, timeFormat, log } = require('../libs/helpers.js');
 
 //Page tags
 let data = {
-  "TITLE": config.pool.name,
-  "network": config.blockchainApp.network
+  "TITLE": pool.poolname,
+  "network": pool.network
 };
 
 //Voter statistics - Voter address
@@ -22,7 +18,7 @@ router.get('/', function (req, res) {
 
 //Voter statistics - Voter info
 router.get('/address/:address', function (req, res) {
-  var address = req.params.address;
+  const address = req.params.address;
 
   //Get data
   pool.db.one("SELECT * FROM voters WHERE address='"+address+"'")
@@ -38,15 +34,12 @@ router.get('/address/:address', function (req, res) {
     .then(rdata => {
       if(rdata.length){
         for(let i=0; i<rdata.length; i++){
-          let d = new Date(+rdata[i].timestamp);
-              d = ("0" + d.getDate()).slice(-2)+"."+("0" + (d.getMonth() + 1)).slice(-2)+"."+d.getFullYear()+" | "+("0" + d.getHours()).slice(-2)+":"+("0" + d.getMinutes()).slice(-2)+":"+("0" + d.getSeconds()).slice(-2);
-
           data.withdrawal.push({
             "reward": beddowsAsLsk(rdata[i].reward),
             "fees": beddowsAsLsk(rdata[i].fees),
             "txid_short": rdata[i].txid.slice(1, -10)+"...",
             "txid": rdata[i].txid,
-            "date": d,
+            "date": timeFormat(rdata[i].timestamp),
             "explorer_url": getExplorer("transaction/"+rdata[i].txid)
           });
         }
