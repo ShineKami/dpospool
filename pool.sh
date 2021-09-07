@@ -36,8 +36,6 @@ DB_DATA="$(pwd)/pgsql/data"
 DB_CONFIG="$(pwd)/pgsql/pgsql.conf"
 
 CMDS=("node" "crontab" "curl" "pm2" "psql" "createdb" "createuser" "dropdb" "dropuser")
-check_cmds CMDS[@]
-
 ################################################################################
 
 #Database
@@ -229,7 +227,7 @@ check_node_status() {
 }
 payouts() {
   echo "Start payouts script..."
-  node payouts.js 
+  node $(pwd)"/libs/payouts.js" 
   sleep 3
   echo "Payouts end."
   exit 1

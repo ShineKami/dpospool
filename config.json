@@ -1,5 +1,6 @@
 {
 	"blockchain": {
+		"nodeAPI": false,
 		"network": {
 			"active": 0,
 			"exist": [{
@@ -31,13 +32,14 @@
 		"showmore": 10,
 		"poolfees": 30,
 		"withdrawal_time": 86400,
-		"exclude_votes": []
+		"exclude_votes": [
+		]
 	},
 	"payouts": {
+		"minpay": 2,
 		"passphrase1": "",
 		"passphrase2": false,
-		"message": "",
-		"minimal": 2,
+		"message": "Payout from ShineKami",
 		"poolfees":[{
 			"address": "",
 			"percent": 100

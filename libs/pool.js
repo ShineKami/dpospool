@@ -2,7 +2,7 @@
 const pgp = require("pg-promise")();
 const LiskAPI = require("./LiskAPI.js");
 
-//
+//Config and helpers
 const config = require('../config.json');
 const { lskAsBeddows, beddowsAsLsk, log, voteCheck, getLocalVoteWeight } = require('./helpers');
 
@@ -40,7 +40,7 @@ class Pool {
   //Init
   Init(){
     if(this.address){
-      this.api.getDelegateInfo()
+      this.api.getAccInfo()
       .then(res => {
         //Get delegate data
         this.name = res.summary.username;
@@ -51,7 +51,7 @@ class Pool {
         this.forgedblocks = res.dpos.delegate.forgedblocks;
         this.missedblocks = res.dpos.delegate.missedblocks;
         this.productivity = 100 - ((this.missedblocks/this.forgedblocks)*100);
-        this.lastForgedBlock = res.last_block;
+        this.lastForgedHeight = res.dpos.delegate.lastForgedHeight;
 
         //Load stats
         this.updPoolFees();
@@ -71,7 +71,7 @@ class Pool {
   //Pool data processing
   processing(){
     setInterval(() => {
-      this.api.getDelegateInfo()
+      this.api.getAccInfo()
       .then(() => {
         this.distributeReward();
         this.updPoolStat();
@@ -82,13 +82,14 @@ class Pool {
 
   //Distribute reward for all voters and pool 
   distributeReward(){
-    this.api.getLastForgedBlock()
-    .then(res => {
-      if(this.lastForgedBlock < res.height){
-        const reward = Number(res.totalForged);
+    this.api.getLastForgedHeight()
+    .then(block => {
+      if(this.lastForgedHeight < block.height){
+        const reward = Number(block.reward);
         const poolReward = Math.round(reward / 100 * this.poolFees);
-        const votersReward = reward - pool_reward;
-       
+        const votersReward = reward - poolReward;
+        this.lastForgedHeight = block.height;
+
         //Voters update balance    
         this.db.any("SELECT * FROM voters")
         .then(rdata => {
@@ -152,6 +153,8 @@ class Pool {
         .catch(error => {
           this.loger("ERR", error.message || error);
         });
+      } else {
+        this.loger("INF", "No new block. Height: "+block.height);
       }
     })
     .catch(error => {
@@ -172,7 +175,7 @@ class Pool {
       .then(rdata => {
         //If not old balanses
         if(rdata.sum !== NaN && rdata.sum !== undefined){
-          oldBalance = rdata.sum;
+          oldBalance = Number(rdata.sum);
         }
 
         //Remove old addresses
@@ -183,7 +186,7 @@ class Pool {
             if(poolfeesList[i].address && Number(poolfeesList[i].percent)>0){
               addAddrs.push({
                 'address': poolfeesList[i].address,
-                'balance': Number(Number(oldBalance) * poolfeesList[i].percent / 100),
+                'balance': Number(oldBalance * poolfeesList[i].percent / 100),
                 'percent': poolfeesList[i].percent
               });
             }
