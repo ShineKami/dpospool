@@ -5,10 +5,6 @@ pgsql/data
 node_modules
 sql/dpospool_dump.sql
 sql/update_scheme.sql
-package-lock.json
-yarn.lock
 
 public_src/bower_components
 public_src/node_modules
-public_src/*.lock
-public_src/*-lock.json

@@ -44,7 +44,7 @@ class Pool {
       .then(res => {
         //Get delegate data
         this.name = res.summary.username;
-        this.balance = Number(res.summary.balance);
+        this.balance = Number(res.token.balance);
         this.rank = res.dpos.delegate.rank;
         this.selfVote = Number(res.dpos.sentVotes[0].amount);
         this.totalVote = Number(res.dpos.delegate.totalVotesReceived);
@@ -72,7 +72,15 @@ class Pool {
   processing(){
     setInterval(() => {
       this.api.getAccInfo()
-      .then(() => {
+      .then(res => {
+        this.balance = Number(res.token.balance);
+        this.rank = res.dpos.delegate.rank;
+        this.selfVote = Number(res.dpos.sentVotes[0].amount);
+        this.totalVote = Number(res.dpos.delegate.totalVotesReceived);
+        this.forgedblocks = res.dpos.delegate.forgedblocks;
+        this.missedblocks = res.dpos.delegate.missedblocks;
+        this.productivity = 100 - ((this.missedblocks/this.forgedblocks)*100);
+
         this.distributeReward();
         this.updPoolStat();
         this.updVoters();

@@ -28,7 +28,7 @@ function Payout(){
 				.then(res => {
 					let nonce = res;
 
-					for(let i = 0; i<1; i++){
+					for(let i = 0; i<data.length; i++){
 						const jsonTX = api.createTX({
 							"recipientAddress": data[i].address,
 							"amount": data[i].balance,
@@ -43,7 +43,7 @@ function Payout(){
 									//Reset balance
 									db.result(pgp.helpers.update({'balance': 0}, ['balance'], 'voters') + ' WHERE id='+data[i].id)
 									.then(() => {
-										log("INF", "Voters payouts - TXID: "+res.transactionId);
+										log("INF", "Voters payouts("+data[i].balance+") - TXID: "+res.transactionId);
 									})
 									.catch(error => {
 										log("ERR", error.message || error);
@@ -64,7 +64,7 @@ function Payout(){
 									//Reset balance
 									db.result(pgp.helpers.update({'balance': 0}, ['balance'], 'poolfees') + ' WHERE id='+data[i].id)
 									.then(() => {
-										log("INF", "Poolfees payoyts - TXID: "+res.transactionId);
+										log("INF", "Poolfees payoyts("+data[i].balance+") - TXID: "+res.transactionId);
 									})
 									.catch(error => {
 										log("ERR", error.message || error);
@@ -90,5 +90,9 @@ function Payout(){
 		})
 	})
 }
-			
-Payout();
+
+if(config.payouts.passphrase1){
+	Payout();	
+} else {
+	log("ERR", "Payout passphrase not set in config");
+}
