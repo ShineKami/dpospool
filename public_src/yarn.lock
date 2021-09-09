@@ -1371,10 +1371,10 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bower@^1.8.12:
-  version "1.8.12"
-  resolved "https://registry.yarnpkg.com/bower/-/bower-1.8.12.tgz#44cfca2a5e04b8d9a066621e24c8b179d8ac321e"
-  integrity sha512-u1xy9SrwwoPlgjuHNjhV+YUPVdqyBj2ALBxuzeIUKXaPI2i2xypGgxqXkuHcITGdi5yBj5JuXgyMvgiWiS1S3Q==
+bootstrap-sass@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/bootstrap-sass/-/bootstrap-sass-3.4.1.tgz#6843c73b1c258a0ac5cb2cc6f6f5285b664a8e9a"
+  integrity sha512-p5rxsK/IyEDQm2CwiHxxUi0MZZtvVFbhWmyMOt4lLkA4bujDA1TGoKT0i1FKIWiugAdP+kK8T5KMDFIKQCLYIA==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -1771,6 +1771,11 @@ commondir@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=
+
+compass-mixins@^0.12.10:
+  version "0.12.10"
+  resolved "https://registry.yarnpkg.com/compass-mixins/-/compass-mixins-0.12.10.tgz#cd9f15f829c4e960cc43bb226f049b28beb99d41"
+  integrity sha1-zZ8V+CnE6WDMQ7sibwSbKL65nUE=
 
 component-emitter@^1.2.1:
   version "1.3.0"
@@ -3309,6 +3314,11 @@ he@1.2.x:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
+highcharts@^9.2.2:
+  version "9.2.2"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-9.2.2.tgz#4ace4aa7c4d2b4051115d9be70bfd2038559d656"
+  integrity sha512-OMEdFCaG626ES1JEcKAvJTpxAOMuchy0XuAplmnOs0Yu7NMd2RMfTLFQ2fCJOxo3ubSdm/RVQwKAWC+5HYThnw==
+
 homedir-polyfill@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/homedir-polyfill/-/homedir-polyfill-1.0.3.tgz#743298cef4e5af3e194161fbadcc2151d3a058e8"
@@ -3841,7 +3851,14 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
-jquery@^3.6.0:
+jquery-asPieProgress@^0.4.7:
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/jquery-asPieProgress/-/jquery-asPieProgress-0.4.7.tgz#9c58eeb7a7bcddbecc9fd3f0a1f5618b8746cbaf"
+  integrity sha512-bMr5b7QL1XEcbwv9+xISy/ksShmilm8x1J7irj5WApr+gV6lFbeinmFeQst93X6+GZ6Dv8CgTEx+kq0AH88nmw==
+  dependencies:
+    jquery ">=2.2.0"
+
+jquery@>=2.2.0, jquery@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
@@ -4441,13 +4458,6 @@ node-modules-regexp@^1.0.0:
   resolved "https://registry.yarnpkg.com/node-modules-regexp/-/node-modules-regexp-1.0.0.tgz#8d9dbe28964a4ac5712e9131642107c71e90ec40"
   integrity sha1-jZ2+KJZKSsVxLpExZCEHxx6Q7EA=
 
-node-normalize-scss@^8.1.2:
-  version "8.1.2"
-  resolved "https://registry.yarnpkg.com/node-normalize-scss/-/node-normalize-scss-8.1.2.tgz#cc9e19479406a29a4795cffebeaa3672a2ea8521"
-  integrity sha512-XJWNbbGpiFc1Dzmt2b9Vk58RUpCG5uLcdX38IRr6OXIlXJOqkgMyx/+iPrY/Z/QYBtZ3aORZp5hFs3iXIvDr2A==
-  dependencies:
-    normalize.css "^8.0.1"
-
 node-releases@^1.1.75:
   version "1.1.75"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.75.tgz#6dd8c876b9897a1b8e5a02de26afa79bb54ebbfe"
@@ -4480,6 +4490,11 @@ normalize-range@^0.1.2:
   resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
   integrity sha1-LRDAa9/TEuqXd2laTShDlFa3WUI=
 
+normalize-scss@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/normalize-scss/-/normalize-scss-7.0.1.tgz#74485e82bb5d0526371136422a09fdb868ffc1a4"
+  integrity sha512-qj16bWnYs+9/ac29IgGjySg4R5qQTp1lXfm7ApFOZNVBYFY8RZ3f8+XQNDDLHeDtI3Ba7Jj4+LuPgz9v/fne2A==
+
 normalize-url@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-2.0.1.tgz#835a9da1551fa26f70e92329069a23aa6574d7e6"
@@ -4488,11 +4503,6 @@ normalize-url@2.0.1:
     prepend-http "^2.0.0"
     query-string "^5.0.1"
     sort-keys "^2.0.0"
-
-normalize.css@^8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-8.0.1.tgz#9b98a208738b9cc2634caacbc42d131c97487bf3"
-  integrity sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==
 
 now-and-later@^2.0.0:
   version "2.0.1"

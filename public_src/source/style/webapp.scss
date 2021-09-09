@@ -1,7 +1,7 @@
 // vendors
-@import "../../bower_components/normalize-scss/_normalize";
-@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "../../bower_components/jquery-asPieProgress/src/scss/asPieProgress";
+@import "../../node_modules/normalize-scss/sass/_normalize";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../node_modules/jquery-asPieProgress/src/scss/asPieProgress";
 
 // global
 @import "partials/_fonts";

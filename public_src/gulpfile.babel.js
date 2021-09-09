@@ -100,7 +100,7 @@ const styleTask = () => gulp.src(path.src.style)
   .pipe(gulp.dest(path.build.css));
 export const styleDevTask = () => gulp.src(path.src.style)
   .pipe(plumber())
-  .pipe(sass({errLogToConsole: true, includePaths: require('node-normalize-scss').inclidePaths}))
+  .pipe(sass({errLogToConsole: true, includePaths: require('normalize-scss').inclidePaths}))
   .pipe(prefixer())
   .pipe(gulp.dest(path.build.css));
 

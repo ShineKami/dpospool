@@ -1,12 +1,12 @@
 /*
  * Third party
  */
-@@include('../../bower_components/jquery/dist/jquery.js')
-@@include('../../bower_components/bootstrap-sass/assets/javascripts/bootstrap.js')
-@@include('../../bower_components/jquery-asPieProgress/dist/jquery-asPieProgress.js')
+@@include('../../node_modules/jquery/dist/jquery.js')
+@@include('../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.js')
+@@include('../../node_modules/jquery-asPieProgress/dist/jquery-asPieProgress.js')
 
 /*Highcharts*/
-@@include('../../bower_components/highcharts/highstock.js')
+@@include('../../node_modules/highcharts/highstock.js')
 
 /*
  * Frontend WebApp

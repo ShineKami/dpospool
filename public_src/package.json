@@ -1,10 +1,10 @@
 {
-  "name": "Pool_Template-LISK",
+  "name": "PoolTemplateLisk",
   "version": "2.0.0",
   "description": "Pool template for LISK",
   "author": {
     "name": "Stanislav Vyshynskiy",
-    "email": "shinekami@madys.net",
+    "email": "sluciferk@gmail.com",
     "url": "https://lisk-ua.net/"
   },
   "repository": {
@@ -29,11 +29,14 @@
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.8",
-    "imagemin-pngquant": "^9.0.2",
-    "jquery": "^3.6.0",
-    "node-normalize-scss": "^8.1.2"
+    "imagemin-pngquant": "^9.0.2"
   },
   "dependencies": {
-    "bower": "^1.8.12"
+    "bootstrap-sass": "^3.4.1",
+    "compass-mixins": "^0.12.10",
+    "highcharts": "^9.2.2",
+    "jquery": "^3.6.0",
+    "jquery-asPieProgress": "^0.4.7",
+    "normalize-scss": "^7.0.1"
   }
 }
