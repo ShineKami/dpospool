@@ -9,7 +9,7 @@ let data = {
   "TITLE": pool.poolname,
 	"daddr": pool.address,
 	"pshare": 100 - pool.poolFees,
-	"pptime": pool.payTime / 3600,
+	"pptime": pool.payTime,
 	"ppmin": pool.payMin,
 };
 

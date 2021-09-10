@@ -25,17 +25,18 @@
 	},
 	"pool": {
 		"name": "Pool",
+		"paytime": "24h",
 		"delegateAddress": "",
 		"port": 3000,
 		"minVote": 10,
 		"maxVote": 1000000,
 		"showmore": 10,
 		"poolfees": 30,
-		"withdrawal_time": 86400,
 		"exclude_votes": [
 		]
 	},
 	"payouts": {
+		"cron": "@daily",
 		"minpay": 2,
 		"passphrase1": "",
 		"passphrase2": false,

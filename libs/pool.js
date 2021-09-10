@@ -21,7 +21,7 @@ class Pool {
     this.showMore = config.pool.showmore;
     this.poolname = config.pool.name;
     this.network = config.blockchain.network;
-    this.payTime = config.pool.withdrawal_time;
+    this.payTime = config.pool.paytime;
     this.payMin = config.payouts.mininal;
 
     //Dunamic data
