@@ -106,7 +106,7 @@ class Pool {
 					if(rdata.length){
 						for(var i = 0; i < rdata.length; i++){
 							var bal = Number(rdata[i].balance) + Number(Math.round(votersReward / 100 * rdata[i].poolpercent)),
-									total = Number(rdata[i].total) + bal;
+									total = Number(rdata[i].total) + Number(Math.round(votersReward / 100 * rdata[i].poolpercent));
 
 							updData.push({
 								'id': rdata[i].id,

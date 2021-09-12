@@ -107,9 +107,10 @@ class LiskAPI {
 	//Create transaction
 	createTX(data){ 
 		//Transaction data
+		let publicKey2;
 		const publicKey1 = cryptography.getAddressAndPublicKeyFromPassphrase(this.passphrase1).publicKey;
 		if(this.passphrase2){
-			const publicKey2 = cryptography.getAddressAndPublicKeyFromPassphrase(this.passphrase2).publicKey;
+			publicKey2 = cryptography.getAddressAndPublicKeyFromPassphrase(this.passphrase2).publicKey;
 		}
 		const nonce = BigInt(data.nonce);
 		const networkID = Buffer.from(this.network.exist[this.network.active].networkID, 'hex');

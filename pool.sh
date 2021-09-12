@@ -30,7 +30,7 @@ DB_USER="$(grep "dbuser" "$POOL_CONFIG" | cut -f 4 -d '"')"
 DB_PASS="$(grep "dbpass" "$POOL_CONFIG" | cut -f 4 -d '"')"
 DB_PORT="$(grep "dbport" "$POOL_CONFIG" | cut -f 4 -d '"')"
 DB_DATA="$(pwd)/pgsql/data"
-DB_BACKUP="$(pwd)/pgsql/backup/"$DB_NAME"_dump.tar.gz"
+DB_BACKUP="$(pwd)/pgsql/backup/"$DB_NAME"_dump.gz"
 
 PAYOUTS_TIME="$(grep "cron" "$POOL_CONFIG" | cut -f 4 -d '"')"
 
@@ -115,7 +115,7 @@ backup_db() {
 	if [ $? != 1 ]; then
 		start_postgresql
 	fi
-	pg_dump -p $DB_PORT $DB_NAME | gzip > $DB_BACKUP &> /dev/null
+	pg_dump -d $DB_NAME -p $DB_PORT | gzip > $DB_BACKUP
 	sleep 1
 	if [ $? != 0 ]; then
 		echo "X Failed to backup $SCRIPT_NAME database."
@@ -131,7 +131,7 @@ restore_db() {
 	fi
 	dropdb --if-exists "$DB_NAME" -p "$DB_PORT" &> /dev/null
 	createdb "$DB_NAME" -p "$DB_PORT" &> /dev/null
-	gzip $DB_BACKUP | psql -U "$DB_USER" -d "$DB_NAME" -p "$DB_PORT" &> /dev/null
+	zcat $DB_BACKUP | psql -U "$DB_USER" -d "$DB_NAME" -p "$DB_PORT" &> /dev/null
 	if [ $? != 0 ]; then
 		echo "X Failed to restore $SCRIPT_NAME database."
 		exit 1
@@ -144,9 +144,9 @@ reset_db() {
 	if [ $? == 1 ]; then
 		stop_postgresql
 	fi
-	rm -rf $DB_DATA
+	rm -rf $DB_DATA &> /dev/null
 	echo "√ Remove db data if exist"
-	rm $LOG_DB_FILE
+	rm $LOG_DB_FILE &> /dev/null
 	pg_ctl initdb -D $DB_DATA -l "$LOG_DB_FILE" &> /dev/null
 	echo "√ Create new db data"
 	start_postgresql
@@ -221,7 +221,7 @@ payouts() {
 		start_postgresql
 	fi
 	echo "Start payouts script..."
-	node $(pwd)"/libs/payouts.js" &> $LOG_APP_FILE
+	node $(pwd)"/libs/payouts.js" 2>&1 $LOG_APP_FILE
 	sleep 3
 	echo "Payouts end."
 	exit 1
