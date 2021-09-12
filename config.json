@@ -32,15 +32,14 @@
 		"maxVote": 1000000,
 		"showmore": 10,
 		"poolfees": 30,
-		"exclude_votes": [
-		]
+		"exclude_votes": []
 	},
 	"payouts": {
 		"cron": "@daily",
 		"minpay": 2,
 		"passphrase1": "",
 		"passphrase2": false,
-		"message": "Payout from ShineKami",
+		"message": "",
 		"poolfees":[{
 			"address": "",
 			"percent": 100

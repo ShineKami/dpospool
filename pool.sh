@@ -62,7 +62,7 @@ create_database() {
 }
 check_node_status() {
 	PID=$(pm2 pid $SCRIPT_NAME)
-	if [ $PID != 0 ]; then
+	if [[ $PID != "" ]] && [[ $PID != 0 ]]; then
 		echo "√ $SCRIPT_NAME node is running as PID: $PID"
 		return 1
 	else
@@ -86,14 +86,13 @@ start_postgresql() {
 	RES=$(check_db_status)
 	if [ $? == 1 ]; then
 		echo $RES
-		exit 1
 	else
 		pg_ctl -o "-F -p $DB_PORT" -D "$DB_DATA" -l "$LOG_DB_FILE" start &> /dev/null
-		if [ $? != 0 ]; then
-			echo "X Failed to start $SCRIPT_NAME database."
-			exit 1
-		else
+		if [ $? == 0 ]; then
 			echo "√ $SCRIPT_NAME database started successfully."
+			check_db_status
+		else
+			echo "X Failed to start $SCRIPT_NAME database."
 		fi
 	fi
 }
@@ -101,7 +100,6 @@ stop_postgresql() {
 	RES=$(check_db_status)
 	if [ $? != 1 ]; then
 		echo $RES
-		exit 1
 	else
 		pg_ctl -o "-F -p $DB_PORT" -D "$DB_DATA" -l "$LOG_DB_FILE" stop &> /dev/null
 		if [ $? != 0 ]; then
@@ -161,12 +159,10 @@ start_pool() {
 	RES=$(check_node_status)
 	if [ $? == 1 ]; then
 		echo $RES
-		exit 1
 	else
 		pm2 start dpospool.js -n $SCRIPT_NAME -l $LOG_APP_FILE &> /dev/null;
 		if [ $? == 0 ]; then
 			echo "√ $SCRIPT_NAME started successfully."
-			sleep 3
 			check_node_status
 		else
 			echo "X Failed to start $SCRIPT_NAME."
@@ -177,7 +173,6 @@ stop_pool() {
 	RES=$(check_node_status)
 	if [ $? != 1 ]; then
 		echo $RES
-		exit 1
 	else
 		pm2 stop $SCRIPT_NAME &> /dev/null;
 		if [ $? !=  0 ]; then

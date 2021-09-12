@@ -6,7 +6,7 @@ const { menuBuilder, log } = require('../libs/helpers.js')
 
 //Page tags
 let data = {
-  "TITLE": pool.poolname,
+	"TITLE": pool.poolname,
 	"daddr": pool.address,
 	"pshare": 100 - pool.poolFees,
 	"pptime": pool.payTime,
@@ -16,18 +16,16 @@ let data = {
 //Home page
 router.get('/', function (req, res, next) {
 	data.MAINMENU = menuBuilder(req.baseUrl);
-  data.network = pool.network.exist[pool.network.active].name;
+	data.network = pool.network.exist[pool.network.active].name;
+	data.username = pool.name;
 
-  //Set tags
-  data.username = pool.name;
-
-  if(data){
-    res.render('home', data);
-  } else {
-    data.message = "Error!";
-    log("ERR", "Error!");
-    res.render('error', data);
-  }
+	if(data){
+		res.render('home', data);
+	} else {
+		data.message = "Error!";
+		log("ERR", "Error!");
+		res.render('error', data);
+	}
 });
 
 module.exports = router;
