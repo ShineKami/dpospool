@@ -5,10 +5,8 @@ Donnations: lskcuy6uvwgq2nqp858saa7tmbppy9c9dzunsxmvu
 
 ## Requirements
 
-- Ubuntu(20.04)
-- NodeJS(12.22), npm/yarn<br>
-- gulp, pm2<br>
-- Git, Cron<br>
+- Ubuntu(20.04), NodeJS(12.22), Git, Cron<br>
+- npm/yarn, gulp, pm2<br>
 
 ## Configure<br>
 All pool configuration in "config.json", edit "config.json" before "bash pool.sh install" and set "login, pass, network etc."<br>
@@ -63,6 +61,6 @@ bash pool.sh install
 <pre>
 bash pool.sh start - start pool script
 bash pool.sh stop - stop pool script
-bash pool.sh payouts - pay pool reward to voters("cron" for automatic payouts)
+bash pool.sh payouts - pay pool reward to voters
 bash pool.sh help - see all commands
 </pre>

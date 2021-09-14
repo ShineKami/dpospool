@@ -48,7 +48,7 @@
 				trackcolor: '#d8d8d8',
 				easing: 'ease',
 				numberCallback: function(n) {
-					return this.get().toFixed(2)+"%";
+					return this.get()+"%";
 				}
 			});
 			chart.asPieProgress("start");

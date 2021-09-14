@@ -23,22 +23,17 @@ router.get('/', function(req, res, next) {
 	data.address = pool.address;
 	data.balance = beddowsAsLsk(pool.balance);
 	data.explorer_url = getExplorer(pool.address);
-	data.forgedblocks = pool.forgedblocks;
-	data.missedblocks = pool.missedblocks;
 	data.username = pool.name;
 	data.rank = pool.rank;
 	data.voters_count = pool.votesCount;
 	data.total_lskvote = pool.totalVote;
 	data.total_support = beddowsAsLsk(pool.totalVote);
 	data.self_vote = beddowsAsLsk(pool.selfVote);
-	data.vote_cap = (100 - (pool.totalVote / (pool.selfVote * 10) * 100)).toFixed(2);
 	data.explorer_url = getExplorer("account/"+pool.address);
+	data.vote_cap = beddowsAsLsk(pool.selfVote * 10);
 
-	if(pool.missedblocks>0){
-		data.productivity = Number((100 - (pool.missedblocks/pool.forgedblocks * 100)).toFixed(2));
-	} else {
-		data.productivity = 100;
-	}
+	data.vote_support = (pool.totalVote / (pool.selfVote * 10) * 100).toFixed(2);
+	data.vote_left = (100 - (pool.totalVote / (pool.selfVote * 10) * 100)).toFixed(2);
 
 	//Voters List
 	pool.db.any("SELECT * FROM voters ORDER BY vote DESC LIMIT "+pool.showMore)

@@ -48,9 +48,6 @@ class Pool {
 				this.rank = res.dpos.delegate.rank;
 				this.selfVote = Number(res.dpos.sentVotes[0].amount);
 				this.totalVote = Number(res.dpos.delegate.totalVotesReceived);
-				this.forgedblocks = res.dpos.delegate.forgedblocks;
-				this.missedblocks = res.dpos.delegate.missedblocks;
-				this.productivity = 100 - ((this.missedblocks/this.forgedblocks)*100);
 				this.lastForgedHeight = res.dpos.delegate.lastForgedHeight;
 
 				//Load stats
@@ -77,9 +74,6 @@ class Pool {
 				this.rank = res.dpos.delegate.rank;
 				this.selfVote = Number(res.dpos.sentVotes[0].amount);
 				this.totalVote = Number(res.dpos.delegate.totalVotesReceived);
-				this.forgedblocks = res.dpos.delegate.forgedblocks;
-				this.missedblocks = res.dpos.delegate.missedblocks;
-				this.productivity = 100 - ((this.missedblocks/this.forgedblocks)*100);
 
 				this.distributeReward();
 				this.updPoolStat();

@@ -44,15 +44,15 @@
 						</div>
 						<div class="col-md-6 col-sm-6">
 							<div class="item">
-								<span class="title">Total supporting LSK:</span>
+								<span class="title">Voteweight:</span>
 								<br>{{total_support}} Ⱡ
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-6">
 							<div class="item">
-								<span class="title">Vote capacity avail:</span>
+								<span class="title">Max Voteweight:</span>
 								<br>
-								{{vote_cap}}%
+								{{vote_cap}} Ⱡ
 							</div>
 						</div>
 						<div class="col-md-12 col-sm-12">
@@ -67,13 +67,13 @@
 			</div>
 			<div class="col-md-4">
 				<div class="box">
-					<div class="pieChart" role="progressbar" data-goal="{{productivity}}">
-						<div class="pie_progress__label">Productivity</div>
+					<div class="pieChart" role="progressbar" data-goal="{{vote_left}}">
+						<div class="pie_progress__label">Voteweight</div>
 						<div class="pie_progress__number">0%</div>
 					</div>
 					<div class="forgStat">
-						<div class="fb">{{forgedblocks}} Forged blocks</div>
-						<div class="mb">{{missedblocks}} Missed blocks</div>
+						<div class="fb">Left: {{vote_left}}%</div>
+						<div class="mb">Received: {{vote_support}}%</div>
 					</div>
 				</div>
 			</div>

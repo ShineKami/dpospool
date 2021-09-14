@@ -1,8 +1,7 @@
 logs/*.log
-pids/*.pid
 public
 pgsql/data
 node_modules
 pgsql/backup/*.gz
-pgsql/sql/update_scheme.sql
 public_src/node_modules
+public_src/*.log

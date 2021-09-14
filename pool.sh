@@ -19,7 +19,6 @@ UNAME=$(uname)
 POOL_CONFIG=config.json
 
 LOGS_DIR="$(pwd)/logs"
-PIDS_DIR="$(pwd)/pids"
 
 LOG_DB_FILE="$LOGS_DIR/pgsql.log"
 LOG_APP_FILE="$LOGS_DIR/app.log"
@@ -30,7 +29,7 @@ DB_USER="$(grep "dbuser" "$POOL_CONFIG" | cut -f 4 -d '"')"
 DB_PASS="$(grep "dbpass" "$POOL_CONFIG" | cut -f 4 -d '"')"
 DB_PORT="$(grep "dbport" "$POOL_CONFIG" | cut -f 4 -d '"')"
 DB_DATA="$(pwd)/pgsql/data"
-DB_BACKUP="$(pwd)/pgsql/backup/"$DB_NAME"_dump.gz"
+DB_BACKUP="$(pwd)/pgsql/backup/"$DB_NAME".dump.gz"
 
 PAYOUTS_TIME="$(grep "cron" "$POOL_CONFIG" | cut -f 4 -d '"')"
 
@@ -196,12 +195,13 @@ reload_pool() {
 cronjobs() {
 	cmd='crontab'
 	bash=$(command -v 'bash')
+	node=$(command -v 'node')
 	crontab=$($cmd -l 2> /dev/null | sed '/pool\.sh start/d' 2> /dev/null | sed '/pool\.sh payouts/d' 2> /dev/null)
 
 	crontab=$(cat <<-EOF
 	$crontab
 	@reboot $bash $(pwd)/pool.sh start > $LOG_CRON_FILE 2>&1
-	$PAYOUTS_TIME $bash $(pwd)/pool.sh payouts > $LOG_CRON_FILE 2>&1
+	$PAYOUTS_TIME $node $(pwd)/libs/payouts.js > $LOG_CRON_FILE 2>&1
 	EOF
 	)
 
@@ -235,6 +235,21 @@ install_pool() {
 	cronjobs
 	start_pool
 	echo " * Installation completed. $SCRIPT_NAME started."
+}
+import_sql() {
+	RES=$(check_db_status)
+	if [ $? != 1 ]; then
+		start_postgresql
+	fi
+	dropdb --if-exists "$DB_NAME" -p "$DB_PORT" &> /dev/null
+	createdb "$DB_NAME" -p "$DB_PORT" &> /dev/null
+	psql -U "$DB_USER" -d "$DB_NAME" -f "$(pwd)/"$DB_NAME"_dump.sql" -p "$DB_PORT" &> /dev/null
+	if [ $? != 0 ]; then
+		echo "X Failed import sql"
+		exit 1
+	else
+		echo "√ Import done"
+	fi
 }
 tail_logs() {
 	if [ -f "$LOG_APP_FILE" ]; then
@@ -270,6 +285,9 @@ help() {
 
 #All commands
 case $1 in
+	"restore_old")
+		import_sql
+		;;
 	"updatecron")
 		cronjobs
 		;;

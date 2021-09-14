@@ -43,7 +43,7 @@ function Payout(){
 									//Reset balance
 									db.result(pgp.helpers.update({'balance': 0}, ['balance'], 'voters') + ' WHERE id='+data[i].id)
 									.then(() => {
-										log("INF", "Voters payouts("+beddowsAsLsk(data[i].balance)+") - TXID: "+res.transactionId);
+										log("INF", "Voters payouts("+beddowsAsLsk(data[i].balance)+" LSK) - TXID: "+res.transactionId);
 									})
 									.catch(error => {
 										log("ERR", error.message || error);
@@ -64,7 +64,7 @@ function Payout(){
 									//Reset balance
 									db.result(pgp.helpers.update({'balance': 0}, ['balance'], 'poolfees') + ' WHERE id='+data[i].id)
 									.then(() => {
-										log("INF", "Poolfees payoyts("+beddowsAsLsk(data[i].balance)+") - TXID: "+res.transactionId);
+										log("INF", "Poolfees payoyts("+beddowsAsLsk(data[i].balance)+" LSK) - TXID: "+res.transactionId);
 									})
 									.catch(error => {
 										log("ERR", error.message || error);

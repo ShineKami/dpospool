@@ -1,6 +1,6 @@
 {
 	"name": "DPoSPool",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "DPoS forging pool",
 	"dependencies": {
 		"@liskhq/lisk-client": "^5.1.3",

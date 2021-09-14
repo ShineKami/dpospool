@@ -51,7 +51,7 @@ const path = {
 };
 
 
-//html task
+//html task(htmlmin breaks the layout)
 const tplTask = () => gulp.src(path.src.tpl)
   .pipe(plumber())
   .pipe(fileinclude())
@@ -100,7 +100,7 @@ const styleTask = () => gulp.src(path.src.style)
   .pipe(gulp.dest(path.build.css));
 export const styleDevTask = () => gulp.src(path.src.style)
   .pipe(plumber())
-  .pipe(sass({errLogToConsole: true, includePaths: require('normalize-scss').inclidePaths}))
+  .pipe(sass({errLogToConsole: true}))
   .pipe(prefixer())
   .pipe(gulp.dest(path.build.css));
 
@@ -127,5 +127,5 @@ export const clean = () => del([path.clean], { force: true });
 
 //Global tasks
 export const dev = gulp.series(clean, gulp.parallel(tplDevTask, jsDevTask, styleDevTask, imgsDevTask, fontsTask), watchFiles);
-export const release = gulp.series(clean, gulp.parallel(tplTask, jsTask, styleTask, imgsTask, fontsTask))
+export const release = gulp.series(clean, gulp.parallel(tplDevTask, jsTask, styleTask, imgsTask, fontsTask))
 export default dev;
