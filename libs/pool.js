@@ -43,12 +43,12 @@ class Pool {
 			this.api.getAccInfo()
 			.then(res => {
 				//Get delegate data
-				this.name = res.summary.username;
-				this.balance = Number(res.token.balance);
-				this.rank = res.dpos.delegate.rank;
-				this.selfVote = Number(res.dpos.sentVotes[0].amount);
-				this.totalVote = Number(res.dpos.delegate.totalVotesReceived);
-				this.lastForgedHeight = res.dpos.delegate.lastForgedHeight;
+				this.name = res.username;
+				this.balance = Number(res.balance);
+				this.rank = res.rank;
+				this.selfVote = Number(res.selfVote);
+				this.totalVote = Number(res.totalVote);
+				this.lastForgedHeight = res.lastForgedHeight;
 
 				//Load stats
 				this.updPoolFees();
@@ -70,10 +70,10 @@ class Pool {
 		setInterval(() => {
 			this.api.getAccInfo()
 			.then(res => {
-				this.balance = Number(res.token.balance);
-				this.rank = res.dpos.delegate.rank;
-				this.selfVote = Number(res.dpos.sentVotes[0].amount);
-				this.totalVote = Number(res.dpos.delegate.totalVotesReceived);
+				this.balance = Number(res.balance);
+				this.rank = res.rank;
+				this.selfVote = Number(res.selfVote);
+				this.totalVote = Number(res.totalVote);
 
 				this.distributeReward();
 				this.updPoolStat();
