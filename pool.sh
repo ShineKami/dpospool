@@ -228,13 +228,12 @@ payouts() {
 }
 install_pool() {
 	echo "#####$SCRIPT_NAME Installation#####"
-	echo " * Installation may take several minutes"
+	echo " * Installation may take several minutes..."
 	check_cmds CMDS[@]
 	echo "√ Check using commands."
 	reset_db
 	cronjobs
-	start_pool
-	echo " * Installation completed. $SCRIPT_NAME started."
+	echo " * Installation completed."
 }
 import_sql() {
 	RES=$(check_db_status)
