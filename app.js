@@ -38,6 +38,10 @@ app.use(function(err, req, res, next) {
 	// set locals, only providing error in development
 	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+	const data = {
+		"message": err.message
+	}
+
 	// render the error page
 	pool.loger("ERR", err.message);
 	res.status(err.status || 500);

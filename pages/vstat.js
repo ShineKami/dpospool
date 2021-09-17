@@ -63,10 +63,10 @@ router.get('/address/:address', function (req, res) {
 //AJAX: get balance history
 router.get('/aget_balance', function(req, res){
 	if(req.xhr){
-		pool.db.any("SELECT voter_id, balance, timestamp FROM balance_history WHERE voter_id='"+data.id+"'")
+		pool.db.any("SELECT voter_id, balance, timestamp FROM balance_history WHERE voter_id='"+data.id+"' ORDER BY timestamp ")
 		.then(rdata => {
-			const data = rdata.map(function(item) { return [parseFloat(item['timestamp']), beddowsAsLsk(item['balance'], true)]});
-			res.send(data);
+			const xhrdata = rdata.map(function(item) { return [Number(item['timestamp']), beddowsAsLsk(item['balance'], true)]});
+			res.send(xhrdata);
 		})
 		.catch(error => {
 			data.message = error.message

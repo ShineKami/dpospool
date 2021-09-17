@@ -22,7 +22,7 @@ class Pool {
 		this.poolname = config.pool.name;
 		this.network = config.blockchain.network;
 		this.payTime = config.pool.paytime;
-		this.payMin = config.payouts.mininal;
+		this.payMin = config.payouts.minpay;
 
 		//Dunamic data
 		this.votesCount = 0;
@@ -78,6 +78,7 @@ class Pool {
 				this.distributeReward();
 				this.updPoolStat();
 				this.updVoters();
+				this.updVotersStats();
 			});
 		}, 60000);
 	}
@@ -340,8 +341,6 @@ class Pool {
 							this.loger("ERR", "Remove voters error: "+error.message || error);
 						});
 					}
-
-					this.updVotersStats()
 				}
 			})
 			.catch(error => {
@@ -359,7 +358,7 @@ class Pool {
 			let vbHist = [];
 
 			if(rdata.length){
-				for(var i = 0; i < rdata.length; i++){
+				for(let i = 0; i < rdata.length; i++){
 					vbHist.push({
 						'voter_id': rdata[i].id,
 						'balance': Number(rdata[i].balance),
