@@ -255,9 +255,22 @@ class Pool {
 				this.votesCount = rdata.length;
 				if(res.length){
 					if(rdata.length){
+						let dbVoteList = [];
+						//Remove unvoted
+						for(var i=0; i < rdata.length; i++){
+							let find = res.filter(x => x.address === rdata[i].address);
+							if(find.length){
+								dbVoteList.push(rdata[i]);
+							} else {
+								delVoters.push("DELETE FROM voters WHERE id="+rdata[i].id);
+								this.votesCount--;
+							}
+						}
+
+
 						for(var i=0; i < res.length; i++){
 							//Check if vote exist db or not
-							let find = rdata.filter(x => x.address === res[i].address);
+							let find = dbVoteList.filter(x => x.address === res[i].address);
 
 							if(find.length){;
 								if(voteCheck(res[i])){
