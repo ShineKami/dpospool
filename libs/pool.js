@@ -174,11 +174,11 @@ class Pool {
 
 		if(poolfeesList.length){
 			//Get full fees balance from old addresses
-			this.db.any("SELECT sum(balance) as sum FROM poolfees")
+			this.db.any("SELECT sum(balance) as total FROM poolfees")
 			.then(rdata => {
 				//If not old balanses
-				if(rdata.sum !== NaN && rdata.sum !== undefined){
-					oldBalance = Number(rdata.sum);
+				if(rdata[0].total !== NaN && rdata[0].total !== undefined){
+					oldBalance = Number(rdata[0].total);
 				}
 
 				//Remove old addresses

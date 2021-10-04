@@ -18,6 +18,7 @@ class LiskAPI {
     this.passphrase1 = config.payouts.passphrase1;
     this.passphrase2 = config.payouts.passphrase2;
     this.message = config.payouts.message;
+    this.poolfees = config.payouts.poolfees;
   }
 
   //Lisk client
@@ -177,15 +178,21 @@ class LiskAPI {
   createTX(data){ 
     //Transaction data
     const publicKey1 = cryptography.getAddressAndPublicKeyFromPassphrase(this.passphrase1).publicKey;
+    let publicKey2 = "";
     if(this.passphrase2){
-      const publicKey2 = cryptography.getAddressAndPublicKeyFromPassphrase(this.passphrase2).publicKey;
+      publicKey2 = cryptography.getAddressAndPublicKeyFromPassphrase(this.passphrase2).publicKey;
     }
     const nonce = BigInt(data.nonce);
     const networkID = Buffer.from(this.network.exist[this.network.active].networkID, 'hex');
     //Asset data
     const recipientAddress = Buffer.from(cryptography.getAddressFromBase32Address(data.recipientAddress, 'lsk'), 'hex');
     const amount = BigInt(data.amount);
-    const message = this.message;
+    //If this poolfees address remove transaction message
+    let message = this.message;
+    let find = this.poolfees.filter(x => x.address === recipientAddress);
+    if(find.length){
+      message = "";
+    }
 
     //unsigTX
     let unsignedTX = {
