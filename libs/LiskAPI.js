@@ -18,7 +18,7 @@ class LiskAPI {
     this.passphrase1 = config.payouts.passphrase1;
     this.passphrase2 = config.payouts.passphrase2;
     this.message = config.payouts.message;
-    this.poolfees = config.payouts.poolfees;
+    this.pfList = config.payouts.poolfees;
   }
 
   //Lisk client
@@ -184,12 +184,13 @@ class LiskAPI {
     }
     const nonce = BigInt(data.nonce);
     const networkID = Buffer.from(this.network.exist[this.network.active].networkID, 'hex');
+
     //Asset data
     const recipientAddress = Buffer.from(cryptography.getAddressFromBase32Address(data.recipientAddress, 'lsk'), 'hex');
     const amount = BigInt(data.amount);
     //If this poolfees address remove transaction message
     let message = this.message;
-    let find = this.poolfees.filter(x => x.address === recipientAddress);
+    let find = this.pfList.filter(x => x.address === data.recipientAddress);
     if(find.length){
       message = "";
     }
