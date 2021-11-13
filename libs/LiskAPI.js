@@ -74,7 +74,7 @@ class LiskAPI {
 
       if(pages>1){
         let mergeResult = [];
-        for(let i=2; i<pages; i++){
+        for(let i=2; i<=pages; i++){
           res = await got(this.serviceAPI+"votes_received?address="+this.address+"&aggregate=true&limit="+this.pageLimit+"&offset="+offcet).json();
           voteList.push.apply(voteList, res.data.votes);
           offcet +=this.pageLimit;
