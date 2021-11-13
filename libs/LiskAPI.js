@@ -68,14 +68,14 @@ class LiskAPI {
   async getVotesList(){
     if(!this.nodeAPI){
       let offcet = this.pageLimit;
-      let res = await got(this.serviceAPI+"votes_received?address="+this.address+"&aggregate=true&limit="+this.pageLimit).json();
+      let res = await got(this.serviceAPI+"votes_received?address="+this.address+"&limit="+this.pageLimit).json();
       let pages = Math.ceil(res.data.account.votesReceived/this.pageLimit);
       let voteList = res.data.votes;
 
       if(pages>1){
         let mergeResult = [];
         for(let i=2; i<=pages; i++){
-          res = await got(this.serviceAPI+"votes_received?address="+this.address+"&aggregate=true&limit="+this.pageLimit+"&offset="+offcet).json();
+          res = await got(this.serviceAPI+"votes_received?address="+this.address+"&limit="+this.pageLimit+"&offset="+offcet).json();
           voteList.push.apply(voteList, res.data.votes);
           offcet +=this.pageLimit;
         }

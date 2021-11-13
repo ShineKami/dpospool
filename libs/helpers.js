@@ -74,6 +74,22 @@ function getLocalVoteWeight(voteList){
 	return localVoteWeight;
 }
 
+//Clear voteList
+function clearVoteList(voteList){
+    const mergedVote = voteList.reduce((prev, cur) => {
+      const index = prev.findIndex(v => v.address === cur.address);
+
+      if(index === -1) {
+        prev.push(cur);
+      } else {
+        prev[index].amount = (Number(prev[index].amount) + Number(cur.amount)).toString();
+      }
+      return prev;
+    }, []); 
+
+    return mergedVote;
+}
+
 //Vote checker
 function voteCheck(vote){
 	const am = Number(vote.amount);
@@ -108,4 +124,4 @@ function log(type, message){
 
 //Lisk client
 
-module.exports = { getExplorer, lskAsBeddows, beddowsAsLsk, menuBuilder, voteCheck, getLocalVoteWeight, timeFormat, log };
+module.exports = { getExplorer, lskAsBeddows, beddowsAsLsk, menuBuilder, voteCheck, getLocalVoteWeight, timeFormat, clearVoteList, log };

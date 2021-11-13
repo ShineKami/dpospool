@@ -4,7 +4,7 @@ const LiskAPI = require("./LiskAPI.js");
 
 //Config and helpers
 const config = require('../config.json');
-const { lskAsBeddows, beddowsAsLsk, log, voteCheck, getLocalVoteWeight } = require('./helpers');
+const { lskAsBeddows, beddowsAsLsk, log, voteCheck, getLocalVoteWeight, clearVoteList } = require('./helpers');
 
 class Pool {
 	//Constructor
@@ -248,17 +248,19 @@ class Pool {
 
 		this.api.getVotesList()
 		.then(res => {
-			const voteWeight = getLocalVoteWeight(res);
+			const clrVoteList = clearVoteList(res);
+			const voteWeight = getLocalVoteWeight(clrVoteList);
 
 			this.db.any("SELECT * FROM voters")
 			.then(rdata => {
 				this.votesCount = rdata.length;
-				if(res.length){
+
+				if(clrVoteList.length){
 					if(rdata.length){
 						let dbVoteList = [];
 						//Remove unvoted
 						for(var i=0; i < rdata.length; i++){
-							let find = res.filter(x => x.address === rdata[i].address);
+							let find = clrVoteList.filter(x => x.address === rdata[i].address);
 							if(find.length){
 								dbVoteList.push(rdata[i]);
 							} else {
@@ -267,19 +269,18 @@ class Pool {
 							}
 						}
 
-
-						for(var i=0; i < res.length; i++){
+						for(var i=0; i < clrVoteList.length; i++){
 							//Check if vote exist db or not
-							let find = dbVoteList.filter(x => x.address === res[i].address);
+							let find = dbVoteList.filter(x => x.address === clrVoteList[i].address);
 
 							if(find.length){;
-								if(voteCheck(res[i])){
+								if(voteCheck(clrVoteList[i])){
 									//Update voter data
 									updVoters.push({
-										"address": res[i].address,
-										"vote": Number(res[i].amount),
-										"username": res[i].username,
-										"poolpercent": parseFloat((res[i].amount / voteWeight * 100).toFixed(2)),
+										"address": clrVoteList[i].address,
+										"vote": Number(clrVoteList[i].amount),
+										"username": clrVoteList[i].username,
+										"poolpercent": parseFloat((clrVoteList[i].amount / voteWeight * 100).toFixed(2)),
 									});
 								} else {
 									//Remove voter
@@ -287,14 +288,14 @@ class Pool {
 									this.votesCount--;
 								}
 							} else {
-								if(voteCheck(res[i])){
+								if(voteCheck(clrVoteList[i])){
 									addVoters.push({
-										'address': res[i].address,
-										'username': res[i].username,
+										'address': clrVoteList[i].address,
+										'username': clrVoteList[i].username,
 										'balance': Number(0),
 										'total': Number(0),
-										'vote': Number(res[i].amount),
-										'poolpercent': parseFloat((res[i].amount / voteWeight * 100).toFixed(2)),
+										'vote': Number(clrVoteList[i].amount),
+										'poolpercent': parseFloat((clrVoteList[i].amount / voteWeight * 100).toFixed(2)),
 										'active': true,
 										'status': 0
 									});
@@ -304,15 +305,15 @@ class Pool {
 						}
 					} else {
 						//First start, add all voters
-						for(var i = 0; i < res.length; i++){
-							if(voteCheck(res[i])){
+						for(var i = 0; i < clrVoteList.length; i++){
+							if(voteCheck(clrVoteList[i])){
 								addVoters.push({
-									'address': res[i].address,
-									'username': res[i].username,
+									'address': clrVoteList[i].address,
+									'username': clrVoteList[i].username,
 									'balance': Number(0),
 									'total': Number(0),
-									'vote': Number(res[i].amount),
-									'poolpercent': parseFloat((res[i].amount / voteWeight * 100).toFixed(2)),
+									'vote': Number(clrVoteList[i].amount),
+									'poolpercent': parseFloat((clrVoteList[i].amount / voteWeight * 100).toFixed(2)),
 									'active': true,
 									'status': 0,
 								});
