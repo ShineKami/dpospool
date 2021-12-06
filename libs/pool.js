@@ -346,7 +346,7 @@ class Pool {
 					}
 
 					//Remove unvoted
-					if(delVoters.length){
+					if(delVoters.length && delVoters.length < 3){
 						this.db.result(pgp.helpers.concat(delVoters))
 						.then(rdata => {
 							this.loger("INF", "Remove inappropriate votes.");
