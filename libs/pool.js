@@ -94,7 +94,7 @@ class Pool {
 				this.lastForgedHeight = block.height;
 
 				//Voters update balance    
-				this.db.any("SELECT * FROM voters")
+				this.db.any("SELECT * FROM voters WHERE active=true")
 				.then(rdata => {
 					let updData = [];
 
@@ -264,7 +264,10 @@ class Pool {
 							if(find.length){
 								dbVoteList.push(rdata[i]);
 							} else {
-								delVoters.push("DELETE FROM voters WHERE id="+rdata[i].id);
+								delVoters.push({
+									"address": rdata[i].address,
+									"active": false
+								});
 								this.votesCount--;
 							}
 						}
@@ -281,10 +284,14 @@ class Pool {
 										"vote": Number(clrVoteList[i].amount),
 										"username": clrVoteList[i].username,
 										"poolpercent": parseFloat((clrVoteList[i].amount / voteWeight * 100).toFixed(2)),
+										"active": true
 									});
 								} else {
 									//Remove voter
-									delVoters.push("DELETE FROM voters WHERE id="+find[0].id);
+									delVoters.push({
+										"address": clrVoteList[i].address,
+										"active": false
+									});
 									this.votesCount--;
 								}
 							} else {
@@ -325,7 +332,7 @@ class Pool {
 
 					//Update voters
 					if(updVoters.length){
-						this.db.result(pgp.helpers.update(updVoters, ['?address', 'username', 'vote', 'poolpercent'], 'voters') + ' WHERE v.address = t.address')
+						this.db.result(pgp.helpers.update(updVoters, ['?address', 'username', 'vote', 'poolpercent', 'active'], 'voters') + ' WHERE v.address = t.address')
 						.then(rdata => {
 							this.loger("INF", "Updating voter's data.");
 						})
@@ -346,10 +353,10 @@ class Pool {
 					}
 
 					//Remove unvoted
-					if(delVoters.length && delVoters.length < 3){
-						this.db.result(pgp.helpers.concat(delVoters))
+					if(delVoters.length){
+						this.db.result(pgp.helpers.update(delVoters, ['?address', 'active'], 'voters') + ' WHERE v.address = t.address')
 						.then(rdata => {
-							this.loger("INF", "Remove inappropriate votes.");
+							this.loger("INF", "Disable inappropriate votes.");
 						})
 						.catch(error => {
 							this.loger("ERR", "Remove voters error: "+error.message || error);
@@ -367,7 +374,7 @@ class Pool {
 	}
 	//Update voters statistic
 	updVotersStats(){
-		this.db.any("SELECT * FROM voters")
+		this.db.any("SELECT * FROM voters WHERE active=true")
 		.then(rdata => {
 			let vbHist = [];
 

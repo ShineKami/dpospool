@@ -36,7 +36,7 @@ router.get('/', function(req, res, next) {
 	data.vote_left = (100 - (pool.totalVote / (pool.selfVote * 10) * 100)).toFixed(2);
 
 	//Voters List
-	pool.db.any("SELECT * FROM voters ORDER BY vote DESC LIMIT "+pool.showMore)
+	pool.db.any("SELECT * FROM voters WHERE active=true ORDER BY vote DESC LIMIT "+pool.showMore)
 	.then(rdata => {
 		for(var i=0; i<rdata.length; i++){
 			if(rdata[i].username == null){
@@ -87,7 +87,7 @@ router.get('/aget_voters/:num', function(req, res) {
 		}
 
 		//Voters List
-		pool.db.any("SELECT * FROM voters ORDER BY vote DESC OFFSET "+si_count+" LIMIT "+pool.showMore)
+		pool.db.any("SELECT * FROM voters WHERE active=true ORDER BY vote DESC OFFSET "+si_count+" LIMIT "+pool.showMore)
 		.then(rdata => {
 			var voters_list = [];
 
@@ -134,7 +134,7 @@ router.get('/aget_reward/:num', function(req, res) {
 		}
 
 		//Voters Reward
-		pool.db.any("SELECT * FROM voters ORDER BY vote DESC OFFSET "+si_count+" LIMIT "+pool.showMore)
+		pool.db.any("SELECT * FROM voters WHERE active=true ORDER BY vote DESC OFFSET "+si_count+" LIMIT "+pool.showMore)
 		.then(rdata => {
 			var voters_reward = [];
 
