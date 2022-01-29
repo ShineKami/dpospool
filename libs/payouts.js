@@ -38,41 +38,45 @@ function Payout(){
 						//Send transaction to node
 						api.sendTX(jsonTX)
 						.then(res => {
-							if(!res.error){
-								if(data[i].vote){
-									//Reset balance
-									db.result(pgp.helpers.update({'balance': 0}, ['balance'], 'voters') + ' WHERE id='+data[i].id)
-									.then(() => {
-										log("INF", "Voters payouts("+beddowsAsLsk(data[i].balance)+" LSK) - TXID: "+res.transactionId);
-									})
-									.catch(error => {
-										log("ERR", error.message || error);
-									});
+							setTimeout(() => {
+								api.checkTX(res.transactionId)
+								.then(answ => {
+									if(data[i].vote){
+										//Reset balance
+										db.result(pgp.helpers.update({'balance': 0}, ['balance'], 'voters') + ' WHERE id='+data[i].id)
+										.then(() => {
+											log("INF", "Voters payouts("+beddowsAsLsk(data[i].balance)+" LSK) - TXID: "+res.transactionId);
+										})
+										.catch(error => {
+											log("ERR", error.message || error);
+										});
 
-									//Update payout history
-									db.result(pgp.helpers.insert({
-										"voter_id": data[i].id,
-										"reward": data[i].balance,
-										"fees": Number(jsonTX.fee),
-										"txid": res.transactionId,
-										"timestamp": Date.now()
-									}, ['voter_id', 'reward', 'fees', 'txid', 'timestamp'], 'withdrawal_history'))
-									.catch(error => {
-										log("ERR", error.message || error);
-									});
-								} else {
-									//Reset balance
-									db.result(pgp.helpers.update({'balance': 0}, ['balance'], 'poolfees') + ' WHERE id='+data[i].id)
-									.then(() => {
-										log("INF", "Poolfees payoyts("+beddowsAsLsk(data[i].balance)+" LSK) - TXID: "+res.transactionId);
-									})
-									.catch(error => {
-										log("ERR", error.message || error);
-									});
-								}
-							} else {
-								log("ERR", res.message);
-							}
+										//Update payout history
+										db.result(pgp.helpers.insert({
+											"voter_id": data[i].id,
+											"reward": data[i].balance,
+											"fees": Number(jsonTX.fee),
+											"txid": res.transactionId,
+											"timestamp": Date.now()
+										}, ['voter_id', 'reward', 'fees', 'txid', 'timestamp'], 'withdrawal_history'))
+										.catch(error => {
+											log("ERR", error.message || error);
+										});
+									} else {
+										//Reset balance
+										db.result(pgp.helpers.update({'balance': 0}, ['balance'], 'poolfees') + ' WHERE id='+data[i].id)
+										.then(() => {
+											log("INF", "Poolfees payoyts("+beddowsAsLsk(data[i].balance)+" LSK) - TXID: "+res.transactionId);
+										})
+										.catch(error => {
+											log("ERR", error.message || error);
+										});
+									}
+								})
+								.catch(error => {
+									log("ERR", error.message+" - Transaction: "+res.transactionId+" not found!");
+								});
+							}, 11000);
 						})
 						.catch(error => {
 							log("ERR", error)

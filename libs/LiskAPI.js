@@ -126,6 +126,11 @@ class LiskAPI {
       return body;
     }
   }
+  //Check tx
+  async checkTX(txID){
+    const res = await got(this.serviceAPI+"transactions?transactionId="+txID).json();
+    return res;
+  }
   //Get Nonce
   async getNonce(){
     if(!this.nodeAPI){
