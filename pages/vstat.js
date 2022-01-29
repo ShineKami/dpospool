@@ -37,7 +37,7 @@ router.get('/address/:address', function (req, res) {
 					data.withdrawal.push({
 						"reward": beddowsAsLsk(rdata[i].reward),
 						"fees": beddowsAsLsk(rdata[i].fees),
-						"txid_short": rdata[i].txid.slice(1, -10)+"...",
+						"txid_short": rdata[i].txid.slice(0, -10)+"...",
 						"txid": rdata[i].txid,
 						"date": timeFormat(rdata[i].timestamp),
 						"explorer_url": getExplorer("transaction/"+rdata[i].txid)
