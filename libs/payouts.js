@@ -108,7 +108,6 @@ function Payout(){
 						log("ERR", error.message || error);
 					});
 				}
-				payoutCount++;
 			})
 			.catch(error => {
 				log("ERR", error.message+" | Reward: "+beddowsAsLsk(pData[i].reward)+" LSK - Recipient: "+pData[i].recipient+" - Transaction: "+pData[i].txid);
