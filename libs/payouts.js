@@ -76,7 +76,7 @@ function Payout(){
 								.catch(error => {
 									log("ERR", error.message+" - Recipient: "+data[i].address+" - Transaction: "+res.transactionId+" not found!");
 								});
-							}, 11000);
+							}, 110000);
 						})
 						.catch(error => {
 							log("ERR", error)
