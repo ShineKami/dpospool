@@ -5,7 +5,7 @@ Donnations: lskcuy6uvwgq2nqp858saa7tmbppy9c9dzunsxmvu
 
 ## Requirements
 
-- Ubuntu(20.04), NodeJS(12.22), Git, Cron<br>
+- Ubuntu(20.04, 22.04), NodeJS(v16.*.*), Git, Cron<br>
 - npm/yarn, gulp, pm2<br>
 
 ## Configure<br>
