@@ -85,8 +85,18 @@ class LiskAPI {
     } else {
       const apiClient = await this.getClient();
       const res = await apiClient.invoke('forger:getVoters');
+      let votersList = res[0].voters;
+      let voters = [];
 
-      return res[0].voters;
+      //Convert binary address to lsk
+      for (var i = 0; i < votersList.length; i++) {
+        voters.push({
+          "address": cryptography.getLisk32AddressFromAddress(cryptography.hexToBuffer(res[0].voters[i].address), 'lsk'),
+          "amount": res[0].voters[i].amount
+        });
+      }
+
+      return voters;
     }
   }
   //Get Last Forged Height

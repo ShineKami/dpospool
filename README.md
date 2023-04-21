@@ -14,7 +14,7 @@ After change "config.json" for the changes to take effect on work pool use "bash
 config.json settings:
 <pre>
 "blockchain": {
-	"nodeAPI": false, //For support nodeAPI mode, enable "lisk-core forger-plugin", also need set delegate in lisk-core config.
+	"nodeAPI": false, //For support nodeAPI mode, enable forgin plugin(lisk-core start --enable-forger-plugin), also need set delegate in lisk-core config.
 	"network": {
 		"active": 0, //Set 1 if you wont start pool on testnet
 
