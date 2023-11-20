@@ -70,19 +70,15 @@ class Pool {
 		setInterval(() => {
 			this.api.getAccInfo()
 			.then(res => {
-				if(this.lastForgedHeight <= res.lastForgedHeight){
-					this.balance = Number(res.balance);
-					this.rank = res.rank;
-					this.selfVote = Number(res.selfVote);
-					this.totalVote = Number(res.totalVote);
+				this.balance = Number(res.balance);
+				this.rank = res.rank;
+				this.selfVote = Number(res.selfVote);
+				this.totalVote = Number(res.totalVote);
 
-					this.distributeReward();
-					this.updPoolStat();
-					this.updVoters();
-					this.updVotersStats();
-				} else {
-					this.loger("WARN", "LiskService not synchronized with network. Last forged height: "+this.lastForgedHeight+". Get forged height: "+res.lastForgedHeight);
-				}
+				this.distributeReward();
+				this.updPoolStat();
+				this.updVoters();
+				this.updVotersStats();
 			});
 		}, 60000);
 	}
